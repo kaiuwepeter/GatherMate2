@@ -1,6 +1,11 @@
 local GatherMate = LibStub("AceAddon-3.0"):GetAddon("GatherMate2")
 local Collector = GatherMate:NewModule("Collector", "AceEvent-3.0")
+local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2",true)
 local NL = LibStub("AceLocale-3.0"):GetLocale("GatherMate2Nodes")   -- for get the local name of Gas Cloud´s
+
+-- Workaround for WoW 12.0.0 Midnight: Create our own event frame to bypass AceEvent taint issues
+local CollectorEventFrame = CreateFrame("Frame", "GatherMate2CollectorFrame")
+local eventHandlers = {}
 
 -- prevSpell, curSpell are markers for what has been cast now and the lastcast
 -- gatherevents if a flag for wether we are listening to events
@@ -14,6 +19,7 @@ Convert for 2.4 spell IDs
 local miningSpell = (GetSpellName(2575))
 local miningSpell2 = (GetSpellName(195122))
 local miningSpell3 = (GetSpellName(423341)) -- Khaz Algar
+local miningSpell4 = (GetSpellName(471013)) -- Midnight
 local herbSpell = (GetSpellName(2366))
 local herbSkill = ((GetSpellName(170691)) or (string.gsub((GetSpellName(9134)),"%A","")))
 local fishSpell = (GetSpellName(7620)) or (GetSpellName(131476))
@@ -31,6 +37,7 @@ local spells =
 	[miningSpell] = "Mining",
 	[miningSpell2] = "Mining",
 	[miningSpell3] = "Mining",
+	[miningSpell4] = "Mining",
 	[herbSpell] = "Herb Gathering",
 	[fishSpell] = "Fishing",
 	[gasSpell] = "Extract Gas",
@@ -55,41 +62,85 @@ local cos = math.cos
 --local sub_string = GetLocale() == "deDE" and "%%%d$s" or "%%s"
 --buffSearchString = string.gsub(AURAADDEDOTHERHELPFUL, sub_string, "(.+)")
 
+-- Workaround for WoW 12.0.0 Midnight: Setup event handler and register PLAYER_LOGIN immediately
+-- This registration happens at file load time (before OnEnable), which is allowed
+CollectorEventFrame:SetScript("OnEvent", function(self, event, ...)
+	-- Special handling for PLAYER_LOGIN to register other events
+	if event == "PLAYER_LOGIN" then
+		Collector:RegisterGatherEvents()
+		CollectorEventFrame:UnregisterEvent("PLAYER_LOGIN")
+		return
+	end
+
+	-- Handle normal events
+	local handler = eventHandlers[event]
+	if handler then
+		handler(Collector, event, ...)
+	end
+end)
+
+-- Register PLAYER_LOGIN immediately at file load time (this is allowed)
+CollectorEventFrame:RegisterEvent("PLAYER_LOGIN")
+
 --[[
 	Enable the collector
 ]]
 function Collector:OnEnable()
-	self:RegisterGatherEvents()
+	-- Event registration is now handled by PLAYER_LOGIN event
+	-- Nothing needed here for WoW 12.0.0 Midnight compatibility
+end
+
+--[[
+	Disable the collector
+]]
+function Collector:OnDisable()
+	self:UnregisterGatherEvents()
 end
 
 --[[
 	Register the events we are interesting
 ]]
 function Collector:RegisterGatherEvents()
-	self:RegisterEvent("UNIT_SPELLCAST_SENT","SpellStarted")
-	self:RegisterEvent("UNIT_SPELLCAST_STOP","SpellStopped")
-	self:RegisterEvent("UNIT_SPELLCAST_FAILED","SpellFailed")
-	self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED","SpellFailed")
-	self:RegisterEvent("CURSOR_CHANGED","CursorChange")
-	self:RegisterEvent("UI_ERROR_MESSAGE","UIError")
-	--self:RegisterEvent("LOOT_CLOSED","GatherCompleted")
-	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "GasBuffDetector")
-	self:RegisterEvent("CHAT_MSG_LOOT","SecondaryGasCheck") -- for Storm Clouds
+	-- Map events to handler functions
+	eventHandlers["UNIT_SPELLCAST_SENT"] = self.SpellStarted
+	eventHandlers["UNIT_SPELLCAST_STOP"] = self.SpellStopped
+	eventHandlers["UNIT_SPELLCAST_FAILED"] = self.SpellFailed
+	eventHandlers["UNIT_SPELLCAST_INTERRUPTED"] = self.SpellFailed
+	eventHandlers["CURSOR_CHANGED"] = self.CursorChange
+	eventHandlers["UI_ERROR_MESSAGE"] = self.UIError
+	-- COMBAT_LOG_EVENT_UNFILTERED is BLOCKED in WoW 12.0.0 Midnight
+	-- This event is no longer available to addons due to combat restrictions
+	-- eventHandlers["COMBAT_LOG_EVENT_UNFILTERED"] = self.GasBuffDetector
+	eventHandlers["CHAT_MSG_LOOT"] = self.SecondaryGasCheck
+
+	-- Register events on our custom frame
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_STOP")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_FAILED")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+	CollectorEventFrame:RegisterEvent("CURSOR_CHANGED")
+	CollectorEventFrame:RegisterEvent("UI_ERROR_MESSAGE")
+	-- COMBAT_LOG_EVENT_UNFILTERED is now PROTECTED in Midnight 12.0.0
+	-- CollectorEventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	CollectorEventFrame:RegisterEvent("CHAT_MSG_LOOT")
 end
 
 --[[
 	Unregister the events
 ]]
 function Collector:UnregisterGatherEvents()
-	self:UnregisterEvent("UNIT_SPELLCAST_SENT")
-	self:UnregisterEvent("UNIT_SPELLCAST_SENT")
-	self:UnregisterEvent("UNIT_SPELLCAST_STOP")
-	self:UnregisterEvent("UNIT_SPELLCAST_FAILED")
-	self:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-	self:UnregisterEvent("CURSOR_CHANGED")
-	self:UnregisterEvent("UI_ERROR_MESSAGE")
-	--self:UnregisterEvent("LOOT_CLOSED")
-	self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_STOP")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_FAILED")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+	CollectorEventFrame:UnregisterEvent("CURSOR_CHANGED")
+	CollectorEventFrame:UnregisterEvent("UI_ERROR_MESSAGE")
+	-- COMBAT_LOG_EVENT_UNFILTERED no longer registered
+	-- CollectorEventFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	CollectorEventFrame:UnregisterEvent("CHAT_MSG_LOOT")
+
+	-- Clear handlers
+	wipe(eventHandlers)
 end
 
 local CrystalizedWater = (C_Item.GetItemNameByID(37705)) or ""
@@ -182,7 +233,7 @@ end
 function Collector:UIError(event,token,msg)
 	local what = tooltipLeftText1:GetText();
 	if not what then return end
-	if strfind(msg, miningSpell) or (miningSpell2 and strfind(msg, miningSpell2) or (miningSpell3 and strfind(msg, miningSpell3))) then
+	if strfind(msg, miningSpell) or (miningSpell2 and strfind(msg, miningSpell2)) or (miningSpell3 and strfind(msg, miningSpell3)) or (miningSpell4 and strfind(msg, miningSpell4)) then
 		self:addItem(miningSpell,what)
 	elseif strfind(msg, herbSkill) then
 		self:addItem(herbSpell,what)
@@ -280,7 +331,23 @@ function Collector:GetWorldTarget()
 	if foundTarget or not spells[curSpell] then return end
 	if (MinimapCluster:IsMouseOver()) then return end
 	local what = tooltipLeftText1:GetText()
+
+	-- DEBUG: Output tooltip text to chat
+	if what and prevSpell then
+		print("|cFF00FF00GatherMate2 Debug:|r Spell: " .. tostring(prevSpell) .. " | Tooltip: " .. tostring(what))
+	end
+
 	local nodeID = GatherMate:GetIDForNode(spells[prevSpell], what)
+
+	-- DEBUG: Output whether node was found
+	if what and prevSpell then
+		if nodeID then
+			print("|cFF00FF00GatherMate2:|r Node found! ID: " .. tostring(nodeID))
+		else
+			print("|cFFFF0000GatherMate2:|r Node NOT found in database!")
+		end
+	end
+
 	if what and prevSpell and what ~= prevSpell and nodeID then
 		self:addItem(prevSpell,what)
 		foundTarget = true
