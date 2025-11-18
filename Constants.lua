@@ -158,6 +158,11 @@ local node_ids = {
 		[NL["Royal Ripple"]]					= 1128,
 		[NL["Shore Treasure"]]					= 1129,
 		[NL["Floating Deep Treasure"]]			= 1130,
+		-- Midnight Pools
+		[NL["Hunter Surge"]]					= 1131,
+		[NL["Surface Ripple"]]					= 1132,
+		[NL["Bubbling Bloom"]]					= 1133,
+		[NL["Lost Treasures"]]					= 1134,
 	},
 	["Mining"] = {
 		[NL["Copper Vein"]] 					= 201,
@@ -315,6 +320,34 @@ local node_ids = {
 			variants = { NL["Rich Desolate Deposit"] },
 			old_ods = { 1244 },
 		},
+
+		-- Midnight Nodes
+		[NL["Refulgent Copper"]]				= {
+			id = 1245,
+			variants = {
+				NL["Voidbound Refulgent Copper"], NL["Lightfused Refulgent Copper"], NL["Rich Refulgent Copper"], NL["Primal Refulgent Copper"], NL["Wild Refulgent Copper"]
+			},
+			old_ids = { 1247, 1248, 1249, 1250, 1263 },
+		},
+		[NL["Refulgent Copper Seam"]]			= 1246,
+
+		[NL["Umbral Tin"]]						= {
+			id = 1251,
+			variants = {
+				NL["Voidbound Umbral Tin"], NL["Lightfused Umbral Tin"], NL["Rich Umbral Tin"], NL["Primal Umbral Tin"], NL["Wild Umbral Tin"]
+			},
+			old_ids = { 1253, 1254, 1255, 1256, 1264 },
+		},
+		[NL["Umbral Tin Seam"]]					= 1252,
+
+		[NL["Brilliant Silver"]]				= {
+			id = 1257,
+			variants = {
+				NL["Voidbound Brilliant Silver"], NL["Lightfused Brilliant Silver"], NL["Rich Brilliant Silver"], NL["Primal Brilliant Silver"], NL["Wild Brilliant Silver"]
+			},
+			old_ids = { 1259, 1260, 1261, 1262, 1265 },
+		},
+		[NL["Brilliant Silver Seam"]]			= 1258,
 	},
 	["Extract Gas"] = {
 		[NL["Windy Cloud"]] 					= 301,
@@ -517,6 +550,31 @@ local node_ids = {
 			id = 1479,
 			variants = { NL["Lush Phantom Bloom"] },
 			old_ids = { 1480 },
+		},
+
+		-- Midnight Nodes
+		[NL["Argentleaf"]]						= {
+			id = 1481,
+			variants = {
+				NL["Wild Argentleaf"], NL["Lush Argentleaf"], NL["Voidbound Argentleaf"], NL["Lightfused Argentleaf"], NL["Primal Argentleaf"]
+			},
+			old_ids = { 1482, 1483, 1484, 1485, 1486 },
+		},
+
+		[NL["Mana Lily"]]						= {
+			id = 1487,
+			variants = {
+				NL["Wild Mana Lily"], NL["Lush Mana Lily"], NL["Voidbound Mana Lily"], NL["Lightfused Mana Lily"], NL["Primal Mana Lily"]
+			},
+			old_ids = { 1488, 1489, 1490, 1491, 1492 },
+		},
+
+		[NL["Tranquility Bloom"]]				= {
+			id = 1493,
+			variants = {
+				NL["Wild Tranquility Bloom"], NL["Lush Tranquility Bloom"], NL["Voidbound Tranquility Bloom"], NL["Lightfused Tranquility Bloom"], NL["Primal Tranquility Bloom"]
+			},
+			old_ids = { 1494, 1495, 1496, 1497, 1498 },
 		},
 	},
 	["Treasure"] = {
@@ -1185,6 +1243,7 @@ local BFA     = 8
 local SL      = 9
 local DF      = 10
 local TWW     = 11
+local MIDNIGHT = 12
 local node_expansion = {
 	["Mining"] = {
 		[201] = CLASSIC,
@@ -1291,6 +1350,13 @@ local node_expansion = {
 		[1241] = TWW,
 		[1242] = TWW,
 		[1243] = TWW,
+		-- Midnight
+		[1245] = MIDNIGHT,
+		[1246] = MIDNIGHT,
+		[1251] = MIDNIGHT,
+		[1252] = MIDNIGHT,
+		[1257] = MIDNIGHT,
+		[1258] = MIDNIGHT,
 	},
 	["Herb Gathering"] = {
 		[401] = CLASSIC,
@@ -1402,6 +1468,10 @@ local node_expansion = {
 		[1463] = TWW,
 		[1471] = TWW,
 		[1479] = TWW,
+		-- Midnight
+		[1481] = MIDNIGHT,
+		[1487] = MIDNIGHT,
+		[1493] = MIDNIGHT,
 	},
 }
 GatherMate.nodeExpansion = node_expansion
