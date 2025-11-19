@@ -576,6 +576,22 @@ local node_ids = {
 			},
 			old_ids = { 1494, 1495, 1496, 1497, 1498 },
 		},
+
+		[NL["Sanguithorn"]]						= {
+			id = 1499,
+			variants = {
+				NL["Wild Sanguithorn"], NL["Lush Sanguithorn"], NL["Voidbound Sanguithorn"], NL["Lightfused Sanguithorn"], NL["Primal Sanguithorn"]
+			},
+			old_ids = { 1500, 1501, 1502, 1503, 1504 },
+		},
+
+		[NL["Azeroot"]]							= {
+			id = 1505,
+			variants = {
+				NL["Wild Azeroot"], NL["Lush Azeroot"], NL["Voidbound Azeroot"], NL["Lightfused Azeroot"], NL["Primal Azeroot"]
+			},
+			old_ids = { 1506, 1507, 1508, 1509, 1510 },
+		},
 	},
 	["Treasure"] = {
 		[NL["Giant Clam"]] 						= 501,
