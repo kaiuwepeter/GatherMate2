@@ -79,3 +79,5 @@ NL["Hunter Surge"] = true
 NL["Surface Ripple"] = true
 NL["Bubbling Bloom"] = true
 NL["Lost Treasures"] = true
+NL["Sunwell Swarm"] = true
+NL["Song Swarm"] = true
