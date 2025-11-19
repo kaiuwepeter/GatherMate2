@@ -13,6 +13,7 @@ if not NL then return end
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@
 
 -- Midnight Expansion Nodes (Custom)
+-- Herb - Kräuterkunde
 NL["Argentleaf"] = "Argentumblatt"
 NL["Wild Argentleaf"] = "Wildes Argentumblatt"
 NL["Lush Argentleaf"] = "Üppiges Argentumblatt"
@@ -34,6 +35,21 @@ NL["Voidbound Tranquility Bloom"] = "Leerengebundene Harmonieblume"
 NL["Lightfused Tranquility Bloom"] = "Lichtverschmolzene Harmonieblume"
 NL["Primal Tranquility Bloom"] = "Urtümliche Harmonieblume"
 
+NL["Sanguithorn"] = "Rotdorn"
+NL["Wild Sanguithorn"] = "Wildes Rotdorn"
+NL["Lush Sanguithorn"] = "Üppiges Rotdorn"
+NL["Voidbound Sanguithorn"] = "Leerengebundenes Rotdorn"
+NL["Lightfused Sanguithorn"] = "Lichtverschmolzenes Rotdorn"
+NL["Primal Sanguithorn"] = "Urtümliches Rotdorn"
+
+NL["Azeroot"] = "Azerwurz"
+NL["Wild Azeroot"] = "Wildes Azerwurz"
+NL["Lush Azeroot"] = "Üppiges Azerwurz"
+NL["Voidbound Azeroot"] = "Leerengebundenes Azerwurz"
+NL["Lightfused Azeroot"] = "Lichtverschmolzenes Azerwurz"
+NL["Primal Azeroot"] = "Urtümliches Azerwurz"
+
+-- Mining - Berbgabu
 NL["Refulgent Copper"] = "Glänzendes Kupfer"
 NL["Refulgent Copper Seam"] = "Glänzendes Kupferflöz"
 NL["Voidbound Refulgent Copper"] = "Leerengebundenes glänzendes Kupfer"
@@ -58,6 +74,7 @@ NL["Rich Brilliant Silver"] = "Reiches brillantes Silber"
 NL["Primal Brilliant Silver"] = "Urtümliches brillantes Silber"
 NL["Wild Brilliant Silver"] = "Wildes brillantes Silber"
 
+-- Fishing - Fischen
 NL["Hunter Surge"] = "Jägerwoge"
 NL["Surface Ripple"] = "Oberflächenkräuseln"
 NL["Bubbling Bloom"] = "Blubbernde Blüte"
