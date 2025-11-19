@@ -163,6 +163,8 @@ local node_ids = {
 		[NL["Surface Ripple"]]					= 1132,
 		[NL["Bubbling Bloom"]]					= 1133,
 		[NL["Lost Treasures"]]					= 1134,
+		[NL["Sunwell Swarm"]]					= 1135,
+		[NL["Song Swarm"]]						= 1136,
 	},
 	["Mining"] = {
 		[NL["Copper Vein"]] 					= 201,
@@ -552,7 +554,7 @@ local node_ids = {
 			old_ids = { 1480 },
 		},
 
-		-- Midnight Nodes
+-- Midnight Nodes
 		[NL["Argentleaf"]]						= {
 			id = 1481,
 			variants = {
