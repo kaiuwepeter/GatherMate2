@@ -37,6 +37,20 @@ NL["Voidbound Tranquility Bloom"] = true
 NL["Lightfused Tranquility Bloom"] = true
 NL["Primal Tranquility Bloom"] = true
 
+NL["Sanguithorn"] = true
+NL["Wild Sanguithorn"] = true
+NL["Lush Sanguithorn"] = true
+NL["Voidbound Sanguithorn"] = true
+NL["Lightfused Sanguithorn"] = true
+NL["Primal Sanguithorn"] = true
+
+NL["Azeroot"] = true
+NL["Wild Azeroot"] = true
+NL["Lush Azeroot"] = true
+NL["Voidbound Azeroot"] = true
+NL["Lightfused Azeroot"] = true
+NL["Primal Azeroot"] = true
+
 NL["Refulgent Copper"] = true
 NL["Refulgent Copper Seam"] = true
 NL["Voidbound Refulgent Copper"] = true
@@ -65,4 +79,3 @@ NL["Hunter Surge"] = true
 NL["Surface Ripple"] = true
 NL["Bubbling Bloom"] = true
 NL["Lost Treasures"] = true
-
