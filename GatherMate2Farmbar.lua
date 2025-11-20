@@ -18,6 +18,7 @@ local PROF_ICON_SIZE = 36
 local PROFESSION_COLORS = {
 	herbalism = {0.2, 0.8, 0.2, 1.0},   -- Green
 	mining = {0.8, 0.6, 0.2, 1.0},      -- Orange
+	fishing = {0.2, 0.6, 1.0, 1.0},     -- Blue
 }
 
 -- Midnight Herbs - Format: {name, iconItemID, trackItemID1, trackItemID2}
@@ -78,6 +79,47 @@ local MIDNIGHT_ORES = {
 	},
 }
 
+-- Midnight Fish - Format: {name, iconItemID, trackItemID}
+-- Fische werden einzeln gezählt (nicht paarweise wie Erze/Kräuter)
+local MIDNIGHT_FISH = {
+	{
+		name = "Fish 1",  -- TODO: Namen hinzufügen wenn bekannt
+		icon = 238370,
+		track = 238370,
+	},
+	{
+		name = "Fish 2",
+		icon = 238383,
+		track = 238383,
+	},
+	{
+		name = "Fish 3",
+		icon = 238366,
+		track = 238366,
+	},
+	{
+		name = "Fish 4",
+		icon = 238371,
+		track = 238371,
+	},
+	{
+		name = "Fish 5",
+		icon = 238384,
+		track = 238384,
+	},
+	{
+		name = "Fish 6",
+		icon = 238372,
+		track = 238372,
+	},
+	{
+		name = "Fish 7",
+		icon = 238365,
+		track = 238365,
+	},
+	-- Weitere Fische können hier hinzugefügt werden
+}
+
 -- Active farmbar frames
 local activeBars = {}
 
@@ -88,6 +130,7 @@ function Farmbar:OnInitialize()
 			enabled = true,
 			showHerbs = true,
 			showOres = true,
+			showFish = true,
 			positions = {},
 			debug = false
 		}
@@ -169,17 +212,41 @@ function Farmbar:UpdateAllBars()
 		end
 	end
 
+	-- Check fish
+	if self.db.showFish then
+		local shouldShow, items = self:ShouldShowBar("fishing", MIDNIGHT_FISH, true)
+		self:Debug(string.format("Fische: shouldShow=%s, items=%d", tostring(shouldShow), #items))
+
+		if shouldShow then
+			if not activeBars.fishing then
+				activeBars.fishing = self:CreateProfessionBar("fishing")
+				self:Debug("Fisch-Bar erstellt")
+			end
+			self:UpdateBar(activeBars.fishing, items)
+			activeBars.fishing:Show()
+		elseif activeBars.fishing then
+			activeBars.fishing:Hide()
+		end
+	end
+
 	self:ArrangeBars()
 end
 
-function Farmbar:ShouldShowBar(profession, itemList)
+function Farmbar:ShouldShowBar(profession, itemList, isFish)
 	local items = {}
 	local hasItems = false
 
 	for _, itemData in ipairs(itemList) do
-		local count1 = GetItemCount(itemData.track1, true)
-		local count2 = GetItemCount(itemData.track2, true)
-		local totalCount = count1 + count2
+		local totalCount
+
+		-- Fish haben nur eine ID, Erze/Kräuter haben zwei
+		if isFish then
+			totalCount = GetItemCount(itemData.track, true)
+		else
+			local count1 = GetItemCount(itemData.track1, true)
+			local count2 = GetItemCount(itemData.track2, true)
+			totalCount = count1 + count2
+		end
 
 		if totalCount > 0 then
 			hasItems = true
@@ -189,11 +256,22 @@ function Farmbar:ShouldShowBar(profession, itemList)
 
 			-- Fallback to first tracked item if icon not available
 			if not itemTexture then
-				itemTexture = C_Item.GetItemIconByID(itemData.track1)
+				if isFish then
+					itemTexture = C_Item.GetItemIconByID(itemData.track)
+				else
+					itemTexture = C_Item.GetItemIconByID(itemData.track1)
+				end
 			end
 
-			self:Debug(string.format("Gefunden: %s x%d (ID1:%d=%d, ID2:%d=%d)",
-				itemData.name, totalCount, itemData.track1, count1, itemData.track2, count2))
+			if isFish then
+				self:Debug(string.format("Gefunden: %s x%d (ID:%d)",
+					itemData.name, totalCount, itemData.track))
+			else
+				local count1 = GetItemCount(itemData.track1, true)
+				local count2 = GetItemCount(itemData.track2, true)
+				self:Debug(string.format("Gefunden: %s x%d (ID1:%d=%d, ID2:%d=%d)",
+					itemData.name, totalCount, itemData.track1, count1, itemData.track2, count2))
+			end
 
 			table.insert(items, {
 				name = itemData.name,
@@ -258,6 +336,8 @@ function Farmbar:CreateProfessionBar(profession)
 		profIcon:SetTexture("Interface\\Icons\\trade_herbalism")
 	elseif profession == "mining" then
 		profIcon:SetTexture("Interface\\Icons\\trade_mining")
+	elseif profession == "fishing" then
+		profIcon:SetTexture("Interface\\Icons\\trade_fishing")
 	end
 	profIcon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	bar.profIcon = profIcon
@@ -280,7 +360,14 @@ function Farmbar:CreateProfessionBar(profession)
 	-- Tooltip
 	bar:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-		local profName = profession == "herbalism" and "Kräuterkunde" or "Bergbau"
+		local profName = "Beruf"
+		if profession == "herbalism" then
+			profName = "Kräuterkunde"
+		elseif profession == "mining" then
+			profName = "Bergbau"
+		elseif profession == "fishing" then
+			profName = "Angeln"
+		end
 		GameTooltip:AddLine(profName, color[1], color[2], color[3])
 		GameTooltip:AddLine("Linksklick + Ziehen zum Verschieben", 0.7, 0.7, 0.7)
 		GameTooltip:Show()
@@ -304,7 +391,7 @@ function Farmbar:UpdateBar(bar, items)
 	for _, item in ipairs(items) do
 		totalCount = totalCount + item.count
 	end
-	bar.totalText:SetText(tostring(totalCount))
+	bar.totalText:SetText(string.format("%04d", totalCount))
 
 	self:Debug(string.format("UpdateBar für %s: %d items, total=%d", bar.profession, #items, totalCount))
 
@@ -404,9 +491,9 @@ function Farmbar:ArrangeBars()
 		end
 	end
 
-	-- Sort: herbalism first, then mining
+	-- Sort: herbalism first, then mining, then fishing
 	table.sort(visibleBars, function(a, b)
-		local order = {herbalism = 1, mining = 2}
+		local order = {herbalism = 1, mining = 2, fishing = 3}
 		return (order[a.profession] or 99) < (order[b.profession] or 99)
 	end)
 
@@ -517,6 +604,17 @@ function Farmbar:ScanInventory()
 			self:Print(string.format("    → %s (ID: %d) x%d", name2, itemData.track2, count2))
 		end
 	end
+
+	-- Scan fish
+	self:Print("|cff3399ffFische:|r")
+	for _, itemData in ipairs(MIDNIGHT_FISH) do
+		local count = GetItemCount(itemData.track, true)
+
+		if count > 0 then
+			local itemName = C_Item.GetItemInfo(itemData.track) or ("Item " .. itemData.track)
+			self:Print(string.format("  %s: %s (ID: %d) x%d", itemData.name, itemName, itemData.track, count))
+		end
+	end
 end
 
 -- Config options
@@ -529,7 +627,7 @@ function Farmbar:SetupConfig()
 			desc = {
 				order = 0,
 				type = "description",
-				name = "Die Farmbar zeigt gesammelte Kräuter und Erze an. Pro Item werden 2 IDs gezählt und addiert.",
+				name = "Die Farmbar zeigt gesammelte Kräuter, Erze und Fische an. Pro Kraut/Erz werden 2 IDs gezählt und addiert, Fische haben 1 ID.",
 			},
 			enabled = {
 				order = 1,
@@ -568,6 +666,18 @@ function Farmbar:SetupConfig()
 				get = function() return self.db.showOres end,
 				set = function(_, v)
 					self.db.showOres = v
+					self:Refresh()
+				end,
+				disabled = function() return not self.db.enabled end,
+			},
+			showFish = {
+				order = 3.5,
+				type = "toggle",
+				name = "Fische anzeigen",
+				desc = "Zeigt gefangene Fische in der Farmbar",
+				get = function() return self.db.showFish end,
+				set = function(_, v)
+					self.db.showFish = v
 					self:Refresh()
 				end,
 				disabled = function() return not self.db.enabled end,
