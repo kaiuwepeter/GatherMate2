@@ -57,6 +57,31 @@ local MIDNIGHT_HERBS = {
 	},
 }
 
+-- Midnight Seeds - Format: {name, iconItemID, trackItemID}
+-- Samen aus Kräuterkunde, werden einzeln gezählt (nicht addiert)
+local MIDNIGHT_SEEDS = {
+	{
+		name = "Resilient Seed",  -- Widerstandsfähiges Samenkorn
+		icon = 237497,
+		track = 237497,
+	},	
+		{
+		name = "Glowing Resilient Seed",  -- ? Leuchtender widerstandsfähiger Samenkorn ?
+		icon = 237498,
+		track = 237498,
+	},
+	{
+		name = "Wild Resilient Seed",  -- ? Wildes widerstandsfähiges Samenkorn ?
+		icon = 237499,
+		track = 237499,
+	},
+	{
+		name = "Primal Resilient Seed",  -- ? Urtümliches widerstandsfähiges Samenkorn ?
+		icon = 237500,
+		track = 237500,
+	},
+}
+
 -- Midnight Ores - Format: {name, iconItemID, trackItemID1, trackItemID2}
 local MIDNIGHT_ORES = {
 	{
@@ -178,17 +203,30 @@ function Farmbar:UpdateAllBars()
 
 	self:Debug("UpdateAllBars wird ausgeführt...")
 
-	-- Check herbs
+	-- Check herbs and seeds
 	if self.db.showHerbs then
-		local shouldShow, items = self:ShouldShowBar("herbalism", MIDNIGHT_HERBS)
-		self:Debug(string.format("Kräuter: shouldShow=%s, items=%d", tostring(shouldShow), #items))
+		local shouldShowHerbs, herbItems = self:ShouldShowBar("herbalism", MIDNIGHT_HERBS)
+		local shouldShowSeeds, seedItems = self:ShouldShowBar("herbalism", MIDNIGHT_SEEDS, true)
+
+		-- Combine herbs and seeds
+		local allItems = {}
+		for _, item in ipairs(herbItems) do
+			table.insert(allItems, item)
+		end
+		for _, item in ipairs(seedItems) do
+			table.insert(allItems, item)
+		end
+
+		local shouldShow = shouldShowHerbs or shouldShowSeeds
+		self:Debug(string.format("Kräuter: shouldShow=%s, items=%d (Herbs:%d, Seeds:%d)",
+			tostring(shouldShow), #allItems, #herbItems, #seedItems))
 
 		if shouldShow then
 			if not activeBars.herbalism then
 				activeBars.herbalism = self:CreateProfessionBar("herbalism")
 				self:Debug("Kräuter-Bar erstellt")
 			end
-			self:UpdateBar(activeBars.herbalism, items)
+			self:UpdateBar(activeBars.herbalism, allItems)
 			activeBars.herbalism:Show()
 		elseif activeBars.herbalism then
 			activeBars.herbalism:Hide()
@@ -589,6 +627,17 @@ function Farmbar:ScanInventory()
 		end
 	end
 
+	-- Scan seeds
+	self:Print("|cff00ff00Samen:|r")
+	for _, itemData in ipairs(MIDNIGHT_SEEDS) do
+		local count = GetItemCount(itemData.track, true)
+
+		if count > 0 then
+			local itemName = C_Item.GetItemInfo(itemData.track) or ("Item " .. itemData.track)
+			self:Print(string.format("  %s: %s (ID: %d) x%d", itemData.name, itemName, itemData.track, count))
+		end
+	end
+
 	-- Scan ores
 	self:Print("|cffff9900Erze:|r")
 	for _, itemData in ipairs(MIDNIGHT_ORES) do
@@ -627,7 +676,7 @@ function Farmbar:SetupConfig()
 			desc = {
 				order = 0,
 				type = "description",
-				name = "Die Farmbar zeigt gesammelte Kräuter, Erze und Fische an. Pro Kraut/Erz werden 2 IDs gezählt und addiert, Fische haben 1 ID.",
+				name = "Die Farmbar zeigt gesammelte Kräuter, Samen, Erze und Fische an. Pro Kraut/Erz werden 2 IDs gezählt und addiert, Samen und Fische haben 1 ID.",
 			},
 			enabled = {
 				order = 1,
@@ -650,7 +699,7 @@ function Farmbar:SetupConfig()
 				order = 2,
 				type = "toggle",
 				name = "Kräuter anzeigen",
-				desc = "Zeigt gesammelte Kräuter in der Farmbar",
+				desc = "Zeigt gesammelte Kräuter und Samen in der Farmbar",
 				get = function() return self.db.showHerbs end,
 				set = function(_, v)
 					self.db.showHerbs = v
