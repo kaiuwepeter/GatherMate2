@@ -5,7 +5,7 @@ local GatherMate = LibStub("AceAddon-3.0"):GetAddon("GatherMate2")
 local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2")
 
 -- Create Farmbar module
-local Farmbar = GatherMate:NewModule("Farmbar", "AceEvent-3.0", "AceTimer-3.0")
+local Farmbar = GatherMate:NewModule("Farmbar", "AceEvent-3.0")
 
 -- Constants for UI layout
 local ICON_SIZE = 32
@@ -182,7 +182,7 @@ function Farmbar:OnEnable()
 end
 
 function Farmbar:DelayedInitialize()
-	self:ScheduleTimer("Initialize", 2)
+	C_Timer.After(2, function() self:Initialize() end)
 end
 
 function Farmbar:Initialize()
