@@ -1490,6 +1490,8 @@ local node_expansion = {
 		[1481] = MIDNIGHT,
 		[1487] = MIDNIGHT,
 		[1493] = MIDNIGHT,
+		[1499] = MIDNIGHT,
+		[1505] = MIDNIGHT,
 	},
 }
 GatherMate.nodeExpansion = node_expansion
