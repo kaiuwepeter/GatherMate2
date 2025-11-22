@@ -127,6 +127,20 @@ local generalOptions = {
 			values = prof_options3,
 			arg = "Logging",
 		},
+		debugHeader = {
+			order = 90,
+			type = "header",
+			name = "Debug",
+		},
+		debugSpells = {
+			order = 91,
+			name = "Debug Spell-IDs",
+			desc = "Zeigt Spell-ID, Name und Target im Chat an wenn Nodes gesammelt werden.",
+			type = "toggle",
+			width = "full",
+			get = function() return db.debugSpells end,
+			set = function(_, v) db.debugSpells = v end,
+		},
 	},
 }
 
