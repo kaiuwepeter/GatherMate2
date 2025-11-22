@@ -114,6 +114,7 @@ function Collector:RegisterGatherEvents()
 	-- This event is no longer available to addons due to combat restrictions
 	-- eventHandlers["COMBAT_LOG_EVENT_UNFILTERED"] = self.GasBuffDetector
 	eventHandlers["CHAT_MSG_LOOT"] = self.SecondaryGasCheck
+	eventHandlers["ZONE_CHANGED_NEW_AREA"] = self.ZoneChanged
 
 	-- Register events on our custom frame
 	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
@@ -125,6 +126,7 @@ function Collector:RegisterGatherEvents()
 	-- COMBAT_LOG_EVENT_UNFILTERED is now PROTECTED in Midnight 12.0.0
 	-- CollectorEventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	CollectorEventFrame:RegisterEvent("CHAT_MSG_LOOT")
+	CollectorEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
 --[[
@@ -140,9 +142,31 @@ function Collector:UnregisterGatherEvents()
 	-- COMBAT_LOG_EVENT_UNFILTERED no longer registered
 	-- CollectorEventFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	CollectorEventFrame:UnregisterEvent("CHAT_MSG_LOOT")
+	CollectorEventFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 
 	-- Clear handlers
 	wipe(eventHandlers)
+end
+
+--[[
+	Zone Changed - Debug output for zone IDs
+]]
+function Collector:ZoneChanged()
+	if not GatherMate.db.profile.debugZones then return end
+
+	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapInfo = mapID and C_Map.GetMapInfo(mapID)
+	local zoneName = mapInfo and mapInfo.name or "Unknown"
+	local parentMapID = mapInfo and mapInfo.parentMapID
+	local parentInfo = parentMapID and C_Map.GetMapInfo(parentMapID)
+	local parentName = parentInfo and parentInfo.name or "None"
+
+	-- Get real zone name from API
+	local realZone = GetRealZoneText() or "Unknown"
+	local subZone = GetSubZoneText() or ""
+
+	print(string.format("|cff00ff00GatherMate2 DEBUG:|r MapID: |cffffd200%s|r | %s | Parent: %s (%s) | SubZone: %s",
+		tostring(mapID), zoneName, parentName, tostring(parentMapID), subZone))
 end
 
 local CrystalizedWater = (C_Item.GetItemNameByID(37705)) or ""
