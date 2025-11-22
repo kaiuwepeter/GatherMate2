@@ -134,12 +134,27 @@ local generalOptions = {
 		},
 		debugSpells = {
 			order = 91,
-			name = "Debug Spell-IDs",
-			desc = "Zeigt Spell-ID, Name und Target im Chat an wenn Nodes gesammelt werden.",
+			name = L["Debug Spells"],
+			desc = L["Shows Spell-ID, Name and Target in chat when gathering nodes."],
 			type = "toggle",
-			width = "full",
 			get = function() return db.debugSpells end,
-			set = function(_, v) db.debugSpells = v end,
+			set = function(_, v)
+				db.debugSpells = v
+				local status = v and L["activated"] or L["deactivated"]
+				print("|cff00ff00GatherMate2:|r " .. L["Debug Spells"] .. " " .. status)
+			end,
+		},
+		debugZones = {
+			order = 92,
+			name = L["Debug Zones"],
+			desc = L["Shows MapID and Zone names in chat when changing zones."],
+			type = "toggle",
+			get = function() return db.debugZones end,
+			set = function(_, v)
+				db.debugZones = v
+				local status = v and L["activated"] or L["deactivated"]
+				print("|cff00ff00GatherMate2:|r " .. L["Debug Zones"] .. " " .. status)
+			end,
 		},
 	},
 }
