@@ -37,7 +37,6 @@ local spells =
 	[miningSpell] = "Mining",
 	[miningSpell2] = "Mining",
 	[miningSpell3] = "Mining",
-	[miningSpell4] = "Mining",
 	[herbSpell] = "Herb Gathering",
 	[fishSpell] = "Fishing",
 	[gasSpell] = "Extract Gas",
@@ -48,7 +47,10 @@ local spells =
 	[sandStormSpell] = "Treasure",
 	[loggingSpell] = "Logging",
 	[205243] = "Treasure", -- skinning ground warts
+	[469894] = "Treasure", -- Erde ebnen / Level Earth (Disturbed Earth)
 }
+-- Midnight spell (only add if it exists)
+if miningSpell4 then spells[miningSpell4] = "Mining" end
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind = string.find
 local pii = math.pi
@@ -249,6 +251,11 @@ end
 ]]
 function Collector:SpellStarted(event,unit,target,guid,spellcast)
 	if unit ~= "player" then return end
+	-- Debug output if enabled in settings
+	if GatherMate.db.profile.debugSpells then
+		local debugSpellName = GetSpellName(spellcast) or "Unknown"
+		print(string.format("|cff00ff00GatherMate2 DEBUG:|r SpellID: %s | Name: %s | Target: %s", tostring(spellcast), debugSpellName, tostring(target)))
+	end
 	foundTarget = false
 	ga ="No"
 	local spellname = GetSpellName(spellcast)
