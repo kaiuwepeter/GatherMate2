@@ -374,7 +374,7 @@ L["Left-click + drag to move"] = "Linksklick + Ziehen zum Verschieben"
 ### 7. GatherMate2.toc
 
 ```lua
-## Interface: 120000
+## Interface: 110200,110205,120000
 ```
 
 ### 8. GatherMate2Farmbar.lua (NEW FILE)
