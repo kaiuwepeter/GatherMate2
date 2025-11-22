@@ -21,6 +21,7 @@ local defaults = {
 		miniscale	= 0.75,
 		alpha       = 1,
 		debugSpells = false,
+		debugZones  = false,
 		show = {
 			["Treasure"] = "always",
 			["Logging"]  = "active",
