@@ -178,7 +178,7 @@ function Farmbar:OnEnable()
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateAllBars")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "DelayedInitialize")
 
-	self:Print("Farmbar geladen! Verwende /gmfarmbar für Optionen.")
+	self:Print(L["Farmbar loaded! Use /gmfarmbar for options."])
 end
 
 function Farmbar:DelayedInitialize()
@@ -398,16 +398,16 @@ function Farmbar:CreateProfessionBar(profession)
 	-- Tooltip
 	bar:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-		local profName = "Beruf"
+		local profName = L["Herbalism"]
 		if profession == "herbalism" then
-			profName = "Kräuterkunde"
+			profName = L["Herbalism"]
 		elseif profession == "mining" then
-			profName = "Bergbau"
+			profName = L["Mining"]
 		elseif profession == "fishing" then
-			profName = "Angeln"
+			profName = L["Fishing"]
 		end
 		GameTooltip:AddLine(profName, color[1], color[2], color[3])
-		GameTooltip:AddLine("Linksklick + Ziehen zum Verschieben", 0.7, 0.7, 0.7)
+		GameTooltip:AddLine(L["Left-click + drag to move"], 0.7, 0.7, 0.7)
 		GameTooltip:Show()
 	end)
 	bar:SetScript("OnLeave", function()
@@ -578,10 +578,10 @@ function Farmbar:Toggle()
 	if self.db.enabled then
 		self:OnEnable()
 		self:Initialize()
-		self:Print("Farmbar aktiviert")
+		self:Print(L["Farmbar activated"])
 	else
 		self:HideAll()
-		self:Print("Farmbar deaktiviert")
+		self:Print(L["Farmbar deactivated"])
 	end
 end
 
@@ -593,26 +593,26 @@ end
 
 function Farmbar:Refresh()
 	self:UpdateAllBars()
-	self:Print("Farmbar aktualisiert")
+	self:Print(L["Farmbar updated"])
 end
 
 function Farmbar:ResetPositions()
 	self.db.positions = {}
-	self:Print("Farmbar Positionen zurückgesetzt")
+	self:Print(L["Farmbar positions reset"])
 	self:ArrangeBars()
 end
 
 function Farmbar:ToggleDebug()
 	self.db.debug = not self.db.debug
-	local status = self.db.debug and "aktiviert" or "deaktiviert"
-	self:Print("Debug-Modus " .. status)
+	local status = self.db.debug and L["activated"] or L["deactivated"]
+	self:Print(L["Debug mode"] .. " " .. status)
 end
 
 function Farmbar:ScanInventory()
-	self:Print("=== Inventar-Scan ===")
+	self:Print(L["=== Inventory Scan ==="])
 
 	-- Scan herbs
-	self:Print("|cff00ff00Kräuter:|r")
+	self:Print("|cff00ff00" .. L["Herbs:"] .. "|r")
 	for _, itemData in ipairs(MIDNIGHT_HERBS) do
 		local count1 = GetItemCount(itemData.track1, true)
 		local count2 = GetItemCount(itemData.track2, true)
@@ -621,14 +621,14 @@ function Farmbar:ScanInventory()
 		if total > 0 then
 			local name1 = C_Item.GetItemInfo(itemData.track1) or ("Item " .. itemData.track1)
 			local name2 = C_Item.GetItemInfo(itemData.track2) or ("Item " .. itemData.track2)
-			self:Print(string.format("  %s: %d gesamt", itemData.name, total))
+			self:Print(string.format("  %s: %d %s", itemData.name, total, L["total"]))
 			self:Print(string.format("    → %s (ID: %d) x%d", name1, itemData.track1, count1))
 			self:Print(string.format("    → %s (ID: %d) x%d", name2, itemData.track2, count2))
 		end
 	end
 
 	-- Scan seeds
-	self:Print("|cff00ff00Samen:|r")
+	self:Print("|cff00ff00" .. L["Seeds:"] .. "|r")
 	for _, itemData in ipairs(MIDNIGHT_SEEDS) do
 		local count = GetItemCount(itemData.track, true)
 
@@ -639,7 +639,7 @@ function Farmbar:ScanInventory()
 	end
 
 	-- Scan ores
-	self:Print("|cffff9900Erze:|r")
+	self:Print("|cffff9900" .. L["Ores:"] .. "|r")
 	for _, itemData in ipairs(MIDNIGHT_ORES) do
 		local count1 = GetItemCount(itemData.track1, true)
 		local count2 = GetItemCount(itemData.track2, true)
@@ -648,14 +648,14 @@ function Farmbar:ScanInventory()
 		if total > 0 then
 			local name1 = C_Item.GetItemInfo(itemData.track1) or ("Item " .. itemData.track1)
 			local name2 = C_Item.GetItemInfo(itemData.track2) or ("Item " .. itemData.track2)
-			self:Print(string.format("  %s: %d gesamt", itemData.name, total))
+			self:Print(string.format("  %s: %d %s", itemData.name, total, L["total"]))
 			self:Print(string.format("    → %s (ID: %d) x%d", name1, itemData.track1, count1))
 			self:Print(string.format("    → %s (ID: %d) x%d", name2, itemData.track2, count2))
 		end
 	end
 
 	-- Scan fish
-	self:Print("|cff3399ffFische:|r")
+	self:Print("|cff3399ff" .. L["Fish:"] .. "|r")
 	for _, itemData in ipairs(MIDNIGHT_FISH) do
 		local count = GetItemCount(itemData.track, true)
 
@@ -670,19 +670,19 @@ end
 function Farmbar:SetupConfig()
 	local farmbarOptions = {
 		type = "group",
-		name = "Farmbar",
-		desc = "Farmbar Einstellungen",
+		name = L["Farmbar"],
+		desc = L["Farmbar Settings"],
 		args = {
 			desc = {
 				order = 0,
 				type = "description",
-				name = "Die Farmbar zeigt gesammelte Kräuter, Samen, Erze und Fische an. Pro Kraut/Erz werden 2 IDs gezählt und addiert, Samen und Fische haben 1 ID.",
+				name = L["The Farmbar displays collected herbs, seeds, ores and fish. For each herb/ore 2 IDs are counted and added, seeds and fish have 1 ID."],
 			},
 			enabled = {
 				order = 1,
 				type = "toggle",
-				name = "Farmbar aktivieren",
-				desc = "Zeigt eine Bar mit gesammelten Items an",
+				name = L["Enable Farmbar"],
+				desc = L["Shows a bar with collected items"],
 				get = function() return self.db.enabled end,
 				set = function(_, v)
 					self.db.enabled = v
@@ -698,8 +698,8 @@ function Farmbar:SetupConfig()
 			showHerbs = {
 				order = 2,
 				type = "toggle",
-				name = "Kräuter anzeigen",
-				desc = "Zeigt gesammelte Kräuter und Samen in der Farmbar",
+				name = L["Show Herbs"],
+				desc = L["Shows collected herbs and seeds in the Farmbar"],
 				get = function() return self.db.showHerbs end,
 				set = function(_, v)
 					self.db.showHerbs = v
@@ -710,8 +710,8 @@ function Farmbar:SetupConfig()
 			showOres = {
 				order = 3,
 				type = "toggle",
-				name = "Erze anzeigen",
-				desc = "Zeigt gesammelte Erze in der Farmbar",
+				name = L["Show Ores"],
+				desc = L["Shows collected ores in the Farmbar"],
 				get = function() return self.db.showOres end,
 				set = function(_, v)
 					self.db.showOres = v
@@ -722,8 +722,8 @@ function Farmbar:SetupConfig()
 			showFish = {
 				order = 3.5,
 				type = "toggle",
-				name = "Fische anzeigen",
-				desc = "Zeigt gefangene Fische in der Farmbar",
+				name = L["Show Fish"],
+				desc = L["Shows caught fish in the Farmbar"],
 				get = function() return self.db.showFish end,
 				set = function(_, v)
 					self.db.showFish = v
@@ -734,33 +734,33 @@ function Farmbar:SetupConfig()
 			debug = {
 				order = 4,
 				type = "toggle",
-				name = "Debug-Modus",
-				desc = "Zeigt Debug-Informationen im Chat",
+				name = L["Debug Mode"],
+				desc = L["Shows debug information in chat"],
 				get = function() return self.db.debug end,
 				set = function(_, v)
 					self.db.debug = v
-					self:Print("Debug-Modus " .. (v and "aktiviert" or "deaktiviert"))
+					self:Print(L["Debug mode"] .. " " .. (v and L["activated"] or L["deactivated"]))
 				end,
 			},
 			refresh = {
 				order = 10,
 				type = "execute",
-				name = "Aktualisieren",
-				desc = "Farmbar manuell aktualisieren",
+				name = L["Refresh"],
+				desc = L["Manually refresh the Farmbar"],
 				func = function() self:Refresh() end,
 			},
 			reset = {
 				order = 11,
 				type = "execute",
-				name = "Positionen zurücksetzen",
-				desc = "Setzt alle Farmbar-Positionen zurück",
+				name = L["Reset Positions"],
+				desc = L["Resets all Farmbar positions"],
 				func = function() self:ResetPositions() end,
 			},
 			scan = {
 				order = 12,
 				type = "execute",
-				name = "Inventar scannen",
-				desc = "Zeigt alle gefundenen Items im Chat",
+				name = L["Scan Inventory"],
+				desc = L["Shows all found items in chat"],
 				func = function() self:ScanInventory() end,
 			},
 		},
@@ -782,13 +782,13 @@ SlashCmdList["GATHERMATE2FARMBAR"] = function(msg)
 	msg = strlower(strtrim(msg or ""))
 
 	if msg == "" or msg == "help" then
-		GatherMate:Print("GatherMate2 Farmbar Befehle:")
-		GatherMate:Print("/gmfarmbar toggle - Farmbar an/aus")
-		GatherMate:Print("/gmfarmbar reset - Positionen zurücksetzen")
-		GatherMate:Print("/gmfarmbar refresh - Farmbar aktualisieren")
-		GatherMate:Print("/gmfarmbar debug - Debug-Modus an/aus")
-		GatherMate:Print("/gmfarmbar scan - Inventar scannen (zeigt IDs)")
-		GatherMate:Print("/gmfarmbar config - Optionen öffnen")
+		GatherMate:Print(L["GatherMate2 Farmbar Commands:"])
+		GatherMate:Print(L["/gmfarmbar toggle - Enable/disable Farmbar"])
+		GatherMate:Print(L["/gmfarmbar reset - Reset positions"])
+		GatherMate:Print(L["/gmfarmbar refresh - Refresh Farmbar"])
+		GatherMate:Print(L["/gmfarmbar debug - Enable/disable debug mode"])
+		GatherMate:Print(L["/gmfarmbar scan - Scan inventory (shows IDs)"])
+		GatherMate:Print(L["/gmfarmbar config - Open options"])
 	elseif msg == "toggle" then
 		Farmbar:Toggle()
 	elseif msg == "reset" then
@@ -802,7 +802,7 @@ SlashCmdList["GATHERMATE2FARMBAR"] = function(msg)
 	elseif msg == "config" then
 		Settings.OpenToCategory("Farmbar")
 	else
-		GatherMate:Print("Unbekannter Befehl. Verwende /gmfarmbar help")
+		GatherMate:Print(L["Unknown command. Use /gmfarmbar help"])
 	end
 end
 
