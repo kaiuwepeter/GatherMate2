@@ -21,6 +21,8 @@ local miningSpell2 = (GetSpellName(195122))
 local miningSpell3 = (GetSpellName(423341)) -- Khaz Algar
 local miningSpell4 = (GetSpellName(471013)) -- Midnight
 local herbSpell = (GetSpellName(2366))
+local herbSpell2 = (GetSpellName(423340)) -- Khaz Algar
+local herbSpell3 = (GetSpellName(471009)) -- Midnight
 local herbSkill = ((GetSpellName(170691)) or (string.gsub((GetSpellName(9134)),"%A","")))
 local fishSpell = (GetSpellName(7620)) or (GetSpellName(131476))
 local gasSpell = (GetSpellName(30427))
@@ -31,6 +33,14 @@ local pickSpell = (GetSpellName(1804))
 local archSpell = (GetSpellName(73979)) -- Searching for Artifacts spell
 local sandStormSpell = (GetSpellName(93473)) -- Sandstorm spell cast by the camel
 local loggingSpell = (GetSpellName(167895))
+
+-- Midnight Fishing: These pools are clicked directly (no fishing spell cast)
+-- They apply an aura when you interact with them
+local midnightFishingAuraID = 1224771 -- "Void Fishing" / "Leerenlochangeln"
+local midnightFishingPools = {
+	["Oceanic Vortex"] = true,
+	-- Add more Midnight fishing pools here as they are discovered
+}
 
 local spells =
 { -- spellname to "database name"
@@ -49,8 +59,10 @@ local spells =
 	[205243] = "Treasure", -- skinning ground warts
 	[469894] = "Treasure", -- Erde ebnen / Level Earth (Disturbed Earth)
 }
--- Midnight spell (only add if it exists)
+-- Midnight spells (only add if they exist)
 if miningSpell4 then spells[miningSpell4] = "Mining" end
+if herbSpell2 then spells[herbSpell2] = "Herb Gathering" end
+if herbSpell3 then spells[herbSpell3] = "Herb Gathering" end
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind = string.find
 local pii = math.pi
@@ -115,6 +127,7 @@ function Collector:RegisterGatherEvents()
 	-- eventHandlers["COMBAT_LOG_EVENT_UNFILTERED"] = self.GasBuffDetector
 	eventHandlers["CHAT_MSG_LOOT"] = self.SecondaryGasCheck
 	eventHandlers["ZONE_CHANGED_NEW_AREA"] = self.ZoneChanged
+	eventHandlers["UNIT_AURA"] = self.MidnightFishingCheck
 
 	-- Register events on our custom frame
 	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
@@ -127,6 +140,7 @@ function Collector:RegisterGatherEvents()
 	-- CollectorEventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	CollectorEventFrame:RegisterEvent("CHAT_MSG_LOOT")
 	CollectorEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	CollectorEventFrame:RegisterEvent("UNIT_AURA")
 end
 
 --[[
@@ -143,6 +157,7 @@ function Collector:UnregisterGatherEvents()
 	-- CollectorEventFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	CollectorEventFrame:UnregisterEvent("CHAT_MSG_LOOT")
 	CollectorEventFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+	CollectorEventFrame:UnregisterEvent("UNIT_AURA")
 
 	-- Clear handlers
 	wipe(eventHandlers)
@@ -167,6 +182,37 @@ function Collector:ZoneChanged()
 
 	print(string.format("|cff00ff00GatherMate2 DEBUG:|r MapID: |cffffd200%s|r | %s | Parent: %s (%s) | SubZone: %s",
 		tostring(mapID), zoneName, parentName, tostring(parentMapID), subZone))
+end
+
+--[[
+	Midnight Fishing Detection
+	These fishing pools are creatures that you click directly (no fishing rod cast)
+	When clicked, they apply an aura. We detect the aura and save the location.
+]]
+function Collector:MidnightFishingCheck(event, unit)
+	if unit ~= "player" then return end
+	
+	-- Check if we have the midnight fishing aura
+	local auraInfo = C_UnitAuras.GetAuraDataBySpellName("player", "Void Fishing") or 
+	                 C_UnitAuras.GetAuraDataBySpellName("player", "Leerenlochangeln")
+	
+	-- Also try by spell ID if name lookup fails
+	if not auraInfo then
+		auraInfo = C_UnitAuras.GetAuraDataByAuraInstanceID("player", midnightFishingAuraID)
+	end
+	
+	if auraInfo then
+		-- We have the fishing aura, check what we're targeting/mousing over
+		local targetName = UnitName("target") or tooltipLeftText1:GetText()
+		
+		if targetName and midnightFishingPools[targetName] then
+			-- Found a known midnight fishing pool
+			self:addItem(fishSpell, targetName)
+			if GatherMate.db.profile.debugSpells then
+				print("|cFF00FF00GatherMate2:|r Midnight fishing pool detected: " .. targetName)
+			end
+		end
+	end
 end
 
 local CrystalizedWater = (C_Item.GetItemNameByID(37705)) or ""
