@@ -33,25 +33,25 @@ local MIDNIGHT_HERBS = {
 	},
 	{
 		name = "Mana Lily",
-		icon = 236778,
+		icon = 236779,
 		track1 = 236778,
 		track2 = 236779,
 	},
 	{
 		name = "Tranquility Bloom",
-		icon = 236761,
+		icon = 236767,
 		track1 = 236761,
 		track2 = 236767,
 	},
 	{
 		name = "Sanguithorn",
-		icon = 236770,
+		icon = 236771,
 		track1 = 236770,
 		track2 = 236771,
 	},
 	{
 		name = "Azeroot",
-		icon = 236774,
+		icon = 236775,
 		track1 = 236774,
 		track2 = 236775,
 	},
@@ -108,39 +108,69 @@ local MIDNIGHT_ORES = {
 -- Fische werden einzeln gezählt (nicht paarweise wie Erze/Kräuter)
 local MIDNIGHT_FISH = {
 	{
-		name = "Fish 1",  -- TODO: Namen hinzufügen wenn bekannt
+		name = "Schimmernder Stachelfisch",
 		icon = 238370,
 		track = 238370,
 	},
 	{
-		name = "Fish 2",
+		name = "Immersangforelle",
 		icon = 238383,
 		track = 238383,
 	},
 	{
-		name = "Fish 3",
+		name = "Luchsfisch",
 		icon = 238366,
 		track = 238366,
 	},
 	{
-		name = "Fish 4",
+		name = "Wyrmfisch",
 		icon = 238371,
 		track = 238371,
 	},
 	{
-		name = "Fish 5",
+		name = "Sonnenbrunnenfisch",
 		icon = 238384,
 		track = 238384,
 	},
 	{
-		name = "Fish 6",
+		name = "Restaurierter Singfisch",
 		icon = 238372,
 		track = 238372,
 	},
 	{
-		name = "Fish 7",
+		name = "Sin´doreischwärmer",
 		icon = 238365,
 		track = 238365,
+	},
+	{
+		name = "Schimmersirene",
+		icon = 238378,
+		track = 238378,
+	},
+	{
+		name = "Hohlbarsch",
+		icon = 238381,
+		track = 238381,
+	},
+	{
+		name = "Pminöser Oktopus", -- Void
+		icon = 238373,
+		track = 238373,
+	},
+	{
+		name = "Blutjäger",
+		icon = 238377,
+		track = 238377,
+	},
+	{
+		name = "Nullnichtigfisch",
+		icon = 238380,
+		track = 238380,
+	},
+	{
+		name = "Verdrehter Weiser", -- Void
+		icon = 238379,
+		track = 238379,
 	},
 	-- Weitere Fische können hier hinzugefügt werden
 }
