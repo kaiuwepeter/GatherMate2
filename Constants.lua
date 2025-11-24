@@ -165,6 +165,7 @@ local node_ids = {
 		[NL["Lost Treasures"]]					= 1134,
 		[NL["Sunwell Swarm"]]					= 1135,
 		[NL["Song Swarm"]]						= 1136,
+		[NL["Oceanic Vortex"]]					= 1137,
 	},
 	["Mining"] = {
 		[NL["Copper Vein"]] 					= 201,
@@ -558,7 +559,8 @@ local node_ids = {
 		[NL["Argentleaf"]]						= {
 			id = 1481,
 			variants = {
-				NL["Wild Argentleaf"], NL["Lush Argentleaf"], NL["Voidbound Argentleaf"], NL["Lightfused Argentleaf"], NL["Primal Argentleaf"]
+				NL["Wild Argentleaf"], NL["Lush Argentleaf"], NL["Voidbound Argentleaf"], NL["Lightfused Argentleaf"], NL["Primal Argentleaf"],
+				NL["Transplanted Argentleaf"], NL["Transplanted Lush Argentleaf"]
 			},
 			old_ids = { 1482, 1483, 1484, 1485, 1486 },
 		},
@@ -566,7 +568,8 @@ local node_ids = {
 		[NL["Mana Lily"]]						= {
 			id = 1487,
 			variants = {
-				NL["Wild Mana Lily"], NL["Lush Mana Lily"], NL["Voidbound Mana Lily"], NL["Lightfused Mana Lily"], NL["Primal Mana Lily"]
+				NL["Wild Mana Lily"], NL["Lush Mana Lily"], NL["Voidbound Mana Lily"], NL["Lightfused Mana Lily"], NL["Primal Mana Lily"],
+				NL["Transplanted Mana Lily"], NL["Transplanted Lush Mana Lily"]
 			},
 			old_ids = { 1488, 1489, 1490, 1491, 1492 },
 		},
@@ -574,7 +577,8 @@ local node_ids = {
 		[NL["Tranquility Bloom"]]				= {
 			id = 1493,
 			variants = {
-				NL["Wild Tranquility Bloom"], NL["Lush Tranquility Bloom"], NL["Voidbound Tranquility Bloom"], NL["Lightfused Tranquility Bloom"], NL["Primal Tranquility Bloom"]
+				NL["Wild Tranquility Bloom"], NL["Lush Tranquility Bloom"], NL["Voidbound Tranquility Bloom"], NL["Lightfused Tranquility Bloom"], NL["Primal Tranquility Bloom"],
+				NL["Transplanted Tranquility Bloom"], NL["Transplanted Lush Tranquility Bloom"]
 			},
 			old_ids = { 1494, 1495, 1496, 1497, 1498 },
 		},
@@ -582,7 +586,8 @@ local node_ids = {
 		[NL["Sanguithorn"]]						= {
 			id = 1499,
 			variants = {
-				NL["Wild Sanguithorn"], NL["Lush Sanguithorn"], NL["Voidbound Sanguithorn"], NL["Lightfused Sanguithorn"], NL["Primal Sanguithorn"]
+				NL["Wild Sanguithorn"], NL["Lush Sanguithorn"], NL["Voidbound Sanguithorn"], NL["Lightfused Sanguithorn"], NL["Primal Sanguithorn"],
+				NL["Transplanted Sanguithorn"], NL["Transplanted Lush Sanguithorn"]
 			},
 			old_ids = { 1500, 1501, 1502, 1503, 1504 },
 		},
@@ -590,7 +595,8 @@ local node_ids = {
 		[NL["Azeroot"]]							= {
 			id = 1505,
 			variants = {
-				NL["Wild Azeroot"], NL["Lush Azeroot"], NL["Voidbound Azeroot"], NL["Lightfused Azeroot"], NL["Primal Azeroot"]
+				NL["Wild Azeroot"], NL["Lush Azeroot"], NL["Voidbound Azeroot"], NL["Lightfused Azeroot"], NL["Primal Azeroot"],
+				NL["Transplanted Azeroot"], NL["Transplanted Lush Azeroot"]
 			},
 			old_ids = { 1506, 1507, 1508, 1509, 1510 },
 		},
@@ -927,6 +933,14 @@ local node_textures = {
 		[1128] = icon_path.."Fish\\fish_hook.tga",
 		[1129] = icon_path.."Fish\\debris.tga",
 		[1130] = icon_path.."Fish\\debris.tga",
+		-- Midnight Pools
+		[1131] = icon_path.."Fish\fish_hook.tga",
+		[1132] = icon_path.."Fish\fish_hook.tga",
+		[1133] = icon_path.."Fish\fish_hook.tga",
+		[1134] = icon_path.."Fish\debris.tga",
+		[1135] = icon_path.."Fish\fish_hook.tga",
+		[1136] = icon_path.."Fish\fish_hook.tga",
+		[1137] = icon_path.."Fish\fish_hook.tga",
 	},
 	["Mining"] = {
 		[201] = icon_path.."Mine\\copper.tga",
