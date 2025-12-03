@@ -10,4 +10,6 @@ if not L then return end
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end
 
+NL["Disturbed Earth"] = "Aufgewühlte Erde"
+
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@

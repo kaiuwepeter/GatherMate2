@@ -13,4 +13,6 @@ local L = LibStub("AceLocale-3.0"):NewLocale("GatherMate2", "enUS", true, debug)
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "enUS", true, debug)
 
+"NL["Disturbed Earth"] = true"
+
 --@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Nodes", table-name="NL")@

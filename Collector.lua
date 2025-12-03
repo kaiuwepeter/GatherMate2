@@ -41,6 +41,7 @@ local spells =
 	[sandStormSpell] = "Treasure",
 	[loggingSpell] = "Logging",
 	[205243] = "Treasure", -- skinning ground warts
+	[469894] = "Treasure", -- Erde ebnen / Level Earth (Disturbed Earth)
 }
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind = string.find
