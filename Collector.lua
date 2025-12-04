@@ -192,20 +192,15 @@ end
 ]]
 function Collector:MidnightFishingCheck(event, unit)
 	if unit ~= "player" then return end
-	
-	-- Check if we have the midnight fishing aura
-	local auraInfo = C_UnitAuras.GetAuraDataBySpellName("player", "Void Hole Fishing") or 
-	                 C_UnitAuras.GetAuraDataBySpellName("player", "Leerenlochangeln")
-	
-	-- Also try by spell ID if name lookup fails
-	if not auraInfo then
-		auraInfo = C_UnitAuras.GetAuraDataByAuraInstanceID("player", midnightFishingAuraID)
-	end
-	
+
+	-- Check if we have the midnight fishing aura using the secure API
+	-- Use GetPlayerAuraBySpellID instead of GetAuraDataBySpellName (which is protected)
+	local auraInfo = C_UnitAuras.GetPlayerAuraBySpellID(midnightFishingAuraID)
+
 	if auraInfo then
 		-- We have the fishing aura, check what we're targeting/mousing over
 		local targetName = UnitName("target") or tooltipLeftText1:GetText()
-		
+
 		if targetName and midnightFishingPools[targetName] then
 			-- Found a known midnight fishing pool
 			self:addItem(fishSpell, targetName)

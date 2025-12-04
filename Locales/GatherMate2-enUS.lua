@@ -845,5 +845,6 @@ NL["Lost Treasures"] = true
 NL["Sunwell Swarm"] = true
 NL["Song Swarm"] = true
 NL["Oceanic Vortex"] = true
+NL["Obscured School"] = true
 
 --@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Nodes", table-name="NL")@
