@@ -73,7 +73,11 @@ local defaults = {
 				["autoImport"] = false,
 				["bcOnly"] = false,
 			},
-		}
+		},
+		-- Kriemhildle Debug Options
+		debugZones = false,
+		debugSpells = false,
+		debugCollect = false,
 	},
 }
 

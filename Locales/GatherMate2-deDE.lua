@@ -189,6 +189,7 @@ L["The distance in yards to a node before it turns into a tracking circle"] = "D
 L["The Frozen Sea"] = "Die gefrorene See"
 L["The North Sea"] = "Das nördliche Meer"
 L["The War Within"] = "The War Within"
+L["Midnight"] = "Midnight"
 L["Toggle if World Map icons are clickable (to remove them or generate way points)."] = "Interaktion mit Symbolen auf der Weltkarte an-/ausschalten (um sie zu entfernen oder um Wegpunkte zu erstellen)"
 L["Toggle showing archaeology nodes."] = "Anzeige der Archäologie Knoten ein-/ausschalten."
 L["Toggle showing fishing nodes."] = "Anzeige der Angel Knoten ein-/ausschalten."
@@ -211,6 +212,16 @@ L["World Map Icons"] = "Weltkarten Symbole"
 L["World Map Icons Clickable"] = "Weltkarten-Symbole anklickbar"
 L["Wrath of the Lich King"] = "Wrath of the Lich King"
 
+-- Kriemhildle Debug Options
+L["Kriemhildle"] = "Kriemhildle"
+L["Debug Options"] = "Debug-Optionen"
+L["Debug Zone Changes"] = "Debug Zonenwechsel"
+L["Debug Spell Casts"] = "Debug Zaubersprüche"
+L["Debug Node Collection"] = "Debug Node-Sammlung"
+L["Enable debug output for zone changes"] = "Aktiviert Debug-Ausgabe für Zonenwechsel"
+L["Enable debug output for spell casts and detection"] = "Aktiviert Debug-Ausgabe für Zaubersprüche und Erkennung"
+L["Enable debug output for node collection"] = "Aktiviert Debug-Ausgabe für Node-Sammlung"
+L["KRIEMHILDLE_DESC"] = "Diese Debug-Optionen helfen beim Nachverfolgen von Node-Sammlung, Zaubererkennung und Zonenidentifizierung. Aktiviere sie, um Probleme mit der Node-Erkennung zu beheben."
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end
@@ -756,8 +767,91 @@ NL["Writhebark"] = "Krümmrinde"
 NL["Zandalari Archaeology Find"] = "Archäologischer Fund der Zandalari"
 NL["Zin'anthid"] = "Zin'anthide"
 
--- Patch 11.2.7
+-- TWW - Patch 11.2.7
 NL["Dornic Fir Lumber"] = "Dorntannenholz"
 
+-- Midnight Kräuterkunde
+NL["Argentleaf"] = "Argentumblatt"
+NL["Wild Argentleaf"] = "Wildes Argentumblatt"
+NL["Lush Argentleaf"] = "Üppiges Argentumblatt"
+NL["Voidbound Argentleaf"] = "Leerengebundenes Argentumblatt"
+NL["Lightfused Argentleaf"] = "Lichtverschmolzenes Argentumblatt"
+NL["Primal Argentleaf"] = "Urtümliches Argentumblatt"
+NL["Transplanted Argentleaf"] = "Umgepflanztes Argentumblatt"
+NL["Transplanted Lush Argentleaf"] = "Umgepflanztes Üppiges Argentumblatt"
+
+NL["Mana Lily"] = "Manalilie"
+NL["Wild Mana Lily"] = "Wilde Manalilie"
+NL["Lush Mana Lily"] = "Üppige Manalilie"
+NL["Voidbound Mana Lily"] = "Leerengebundene Manalilie"
+NL["Lightfused Mana Lily"] = "Lichtverschmolzene Manalilie"
+NL["Primal Mana Lily"] = "Urtümliche Manalilie"
+NL["Transplanted Mana Lily"] = "Umgepflanzte Manalilie"
+NL["Transplanted Lush Mana Lily"] = "Umgepflanzte Üppige Manalilie"
+
+NL["Tranquility Bloom"] = "Harmonieblume"
+NL["Wild Tranquility Bloom"] = "Wilde Harmonieblume"
+NL["Lush Tranquility Bloom"] = "Üppige Harmonieblume"
+NL["Voidbound Tranquility Bloom"] = "Leerengebundene Harmonieblume"
+NL["Lightfused Tranquility Bloom"] = "Lichtverschmolzene Harmonieblume"
+NL["Primal Tranquility Bloom"] = "Urtümliche Harmonieblume"
+NL["Transplanted Tranquility Bloom"] = "Umgepflanzte Harmonieblume"
+NL["Transplanted Lush Tranquility Bloom"] = "Umgepflanzte Üppige Harmonieblume"
+
+NL["Sanguithorn"] = "Rotdorn"
+NL["Wild Sanguithorn"] = "Wilder Rotdorn"
+NL["Lush Sanguithorn"] = "Üppiger Rotdorn"
+NL["Voidbound Sanguithorn"] = "Leerengebundener Rotdorn"
+NL["Lightfused Sanguithorn"] = "Lichtverschmolzener Rotdorn"
+NL["Primal Sanguithorn"] = "Urtümlicher Rotdorn"
+NL["Transplanted Sanguithorn"] = "Umgepflanzter Rotdorn"
+NL["Transplanted Lush Sanguithorn"] = "Umgepflanzter Üppiger Rotdorn"
+
+NL["Azeroot"] = "Azerwurz"
+NL["Wild Azeroot"] = "Wilde Azerwurz"
+NL["Lush Azeroot"] = "Üppige Azerwurz"
+NL["Voidbound Azeroot"] = "Leerengebundene Azerwurz"
+NL["Lightfused Azeroot"] = "Lichtverschmolzene Azerwurz"
+NL["Primal Azeroot"] = "Urtümliche Azerwurz"
+NL["Transplanted Azeroot"] = "Umgepflanzte Azerwurz"
+NL["Transplanted Lush Azeroot"] = "Umgepflanzte Üppige Azerwurz"
+
+-- Mining - Bergbau
+NL["Refulgent Copper"] = "Glänzendes Kupfer"
+NL["Refulgent Copper Seam"] = "Glänzendes Kupferflöz"
+NL["Voidbound Refulgent Copper"] = "Leerengebundenes glänzendes Kupfer"
+NL["Lightfused Refulgent Copper"] = "Lichtverschmolzenes glänzendes Kupfer"
+NL["Rich Refulgent Copper"] = "Reiches glänzendes Kupfer"
+NL["Primal Refulgent Copper"] = "Urtümliches glänzendes Kupfer"
+NL["Wild Refulgent Copper"] = "Wildes glänzendes Kupfer"
+
+NL["Umbral Tin"] = "Umbralzinn"
+NL["Umbral Tin Seam"] = "Umbralzinnflöz"
+NL["Voidbound Umbral Tin"] = "Leerengebundenes Umbralzinn"
+NL["Lightfused Umbral Tin"] = "Lichtverschmolzenes Umbralzinn"
+NL["Rich Umbral Tin"] = "Reiches Umbralzinn"
+NL["Primal Umbral Tin"] = "Urtümliches Umbralzinn"
+NL["Wild Umbral Tin"] = "Wildes Umbralzinn"
+
+NL["Brilliant Silver"] = "Brillantes Silber"
+NL["Brilliant Silver Seam"] = "Brillantes Silberflöz"
+NL["Voidbound Brilliant Silver"] = "Leerengebundenes brillantes Silber"
+NL["Lightfused Brilliant Silver"] = "Lichtverschmolzenes brillantes Silber"
+NL["Rich Brilliant Silver"] = "Reiches brillantes Silber"
+NL["Primal Brilliant Silver"] = "Urtümliches brillantes Silber"
+NL["Wild Brilliant Silver"] = "Wildes brillantes Silber"
+
+-- Fishing - Fischen
+NL["Hunter Surge"] = "Jägerwoge"
+NL["Surface Ripple"] = "Oberflächenkräuseln"
+NL["Bubbling Bloom"] = "Blubbernde Blüte"
+NL["Lost Treasures"] = "Verlorene Schätze"
+NL["Sunwell Swarm"] = "Sonnenbrunnenschwarm"
+NL["Song Swarm"] = "Singender Schwarm"
+NL["Oceanic Vortex"] = "Oceanic Vortex"
+-- neu 04.12.2025
+NL["Obscured School"] = "Verschleierter Schwarm"
+NL["Bloom Swarm"] = "Blütenschwarm"
+NL["Viscous Void"] = true
 
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@
