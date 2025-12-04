@@ -1,7 +1,11 @@
 local GatherMate = LibStub("AceAddon-3.0"):GetAddon("GatherMate2")
 local Collector = GatherMate:NewModule("Collector", "AceEvent-3.0")
+local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2",true)																
 local NL = LibStub("AceLocale-3.0"):GetLocale("GatherMate2Nodes")   -- for get the local name of Gas Cloud´s
 
+-- Workaround for WoW 12.0.0 Midnight: Create our own event frame to bypass AceEvent taint issues
+local CollectorEventFrame = CreateFrame("Frame", "GatherMate2CollectorFrame")
+local eventHandlers = {}																							 
 -- prevSpell, curSpell are markers for what has been cast now and the lastcast
 -- gatherevents if a flag for wether we are listening to events
 local prevSpell, curSpell, foundTarget, ga
@@ -14,7 +18,10 @@ Convert for 2.4 spell IDs
 local miningSpell = (GetSpellName(2575))
 local miningSpell2 = (GetSpellName(195122))
 local miningSpell3 = (GetSpellName(423341)) -- Khaz Algar
+local miningSpell4 = (GetSpellName(471013)) -- Midnight													   
 local herbSpell = (GetSpellName(2366))
+local herbSpell2 = (GetSpellName(423340)) -- Khaz Algar
+local herbSpell3 = (GetSpellName(471009)) -- Midnight													   												 
 local herbSkill = ((GetSpellName(170691)) or (string.gsub((GetSpellName(9134)),"%A","")))
 local fishSpell = (GetSpellName(7620)) or (GetSpellName(131476))
 local gasSpell = (GetSpellName(30427))
@@ -26,7 +33,13 @@ local archSpell = (GetSpellName(73979)) -- Searching for Artifacts spell
 local sandStormSpell = (GetSpellName(93473)) -- Sandstorm spell cast by the camel
 local loggingSpell = (GetSpellName(167895))
 local loggingSpell2 = (GetSpellName(1239682)) -- Woodchopping / Holzhacken  Patch: 11.2.7
-
+-- Midnight Fishing: These pools are clicked directly (no fishing spell cast)
+-- They apply an aura when you interact with them
+local midnightFishingAuraID = 1224771 -- "Void Hole Fishing" / "Leerenlochangeln"
+local midnightFishingPools = {
+	["Oceanic Vortex"] = true,
+	-- Add more Midnight fishing pools here as they are discovered
+}												 
 local spells =
 { -- spellname to "database name"
 	[miningSpell] = "Mining",
@@ -45,6 +58,11 @@ local spells =
 	[205243] = "Treasure", -- skinning ground warts
 	[469894] = "Treasure", -- Erde ebnen / Level Earth (Disturbed Earth)
 }
+
+-- Midnight/TTW spells
+if miningSpell4 then spells[miningSpell4] = "Mining" end
+if herbSpell2 then spells[herbSpell2] = "Herb Gathering" end
+if herbSpell3 then spells[herbSpell3] = "Herb Gathering" end					  
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind = string.find
 local pii = math.pi
@@ -58,41 +76,144 @@ local cos = math.cos
 --local sub_string = GetLocale() == "deDE" and "%%%d$s" or "%%s"
 --buffSearchString = string.gsub(AURAADDEDOTHERHELPFUL, sub_string, "(.+)")
 
+-- Workaround for WoW 12.0.0 Midnight: Setup event handler and register PLAYER_LOGIN immediately
+-- This registration happens at file load time (before OnEnable), which is allowed
+CollectorEventFrame:SetScript("OnEvent", function(self, event, ...)
+	-- Special handling for PLAYER_LOGIN to register other events
+	if event == "PLAYER_LOGIN" then
+		Collector:RegisterGatherEvents()
+		CollectorEventFrame:UnregisterEvent("PLAYER_LOGIN")
+		return
+	end
+
+	-- Handle normal events
+	local handler = eventHandlers[event]
+	if handler then
+		handler(Collector, event, ...)
+	end
+end)
+
+-- Register PLAYER_LOGIN immediately at file load time (this is allowed)
+CollectorEventFrame:RegisterEvent("PLAYER_LOGIN")
+
 --[[
 	Enable the collector
 ]]
 function Collector:OnEnable()
-	self:RegisterGatherEvents()
+	-- Event registration is now handled by PLAYER_LOGIN event
+	-- Nothing needed here for WoW 12.0.0 Midnight compatibility
+end
+
+--[[
+	Disable the collector
+]]
+function Collector:OnDisable()
+	self:UnregisterGatherEvents()
 end
 
 --[[
 	Register the events we are interesting
 ]]
 function Collector:RegisterGatherEvents()
-	self:RegisterEvent("UNIT_SPELLCAST_SENT","SpellStarted")
-	self:RegisterEvent("UNIT_SPELLCAST_STOP","SpellStopped")
-	self:RegisterEvent("UNIT_SPELLCAST_FAILED","SpellFailed")
-	self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED","SpellFailed")
-	self:RegisterEvent("CURSOR_CHANGED","CursorChange")
-	self:RegisterEvent("UI_ERROR_MESSAGE","UIError")
-	--self:RegisterEvent("LOOT_CLOSED","GatherCompleted")
-	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "GasBuffDetector")
-	self:RegisterEvent("CHAT_MSG_LOOT","SecondaryGasCheck") -- for Storm Clouds
+	-- Map events to handler functions
+	eventHandlers["UNIT_SPELLCAST_SENT"] = self.SpellStarted
+	eventHandlers["UNIT_SPELLCAST_STOP"] = self.SpellStopped
+	eventHandlers["UNIT_SPELLCAST_FAILED"] = self.SpellFailed
+	eventHandlers["UNIT_SPELLCAST_INTERRUPTED"] = self.SpellFailed
+	eventHandlers["CURSOR_CHANGED"] = self.CursorChange
+	eventHandlers["UI_ERROR_MESSAGE"] = self.UIError
+	-- COMBAT_LOG_EVENT_UNFILTERED is BLOCKED in WoW 12.0.0 Midnight
+	-- This event is no longer available to addons due to combat restrictions
+	-- eventHandlers["COMBAT_LOG_EVENT_UNFILTERED"] = self.GasBuffDetector
+	eventHandlers["CHAT_MSG_LOOT"] = self.SecondaryGasCheck
+	eventHandlers["ZONE_CHANGED_NEW_AREA"] = self.ZoneChanged
+	eventHandlers["UNIT_AURA"] = self.MidnightFishingCheck
+
+	-- Register events on our custom frame
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_STOP")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_FAILED")
+	CollectorEventFrame:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+	CollectorEventFrame:RegisterEvent("CURSOR_CHANGED")
+	CollectorEventFrame:RegisterEvent("UI_ERROR_MESSAGE")
+	-- COMBAT_LOG_EVENT_UNFILTERED is now PROTECTED in Midnight 12.0.0
+	-- CollectorEventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	CollectorEventFrame:RegisterEvent("CHAT_MSG_LOOT")
+	CollectorEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	CollectorEventFrame:RegisterEvent("UNIT_AURA")
 end
 
 --[[
 	Unregister the events
 ]]
 function Collector:UnregisterGatherEvents()
-	self:UnregisterEvent("UNIT_SPELLCAST_SENT")
-	self:UnregisterEvent("UNIT_SPELLCAST_SENT")
-	self:UnregisterEvent("UNIT_SPELLCAST_STOP")
-	self:UnregisterEvent("UNIT_SPELLCAST_FAILED")
-	self:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-	self:UnregisterEvent("CURSOR_CHANGED")
-	self:UnregisterEvent("UI_ERROR_MESSAGE")
-	--self:UnregisterEvent("LOOT_CLOSED")
-	self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+											
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_STOP")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_FAILED")
+	CollectorEventFrame:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+	CollectorEventFrame:UnregisterEvent("CURSOR_CHANGED")
+	CollectorEventFrame:UnregisterEvent("UI_ERROR_MESSAGE")
+	-- COMBAT_LOG_EVENT_UNFILTERED no longer registered
+	-- CollectorEventFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	CollectorEventFrame:UnregisterEvent("CHAT_MSG_LOOT")
+	CollectorEventFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+	CollectorEventFrame:UnregisterEvent("UNIT_AURA")
+
+	-- Clear handlers
+	wipe(eventHandlers)
+end
+
+--[[
+	Zone Changed - Debug output for zone IDs
+]]
+function Collector:ZoneChanged()
+	if not GatherMate.db.profile.debugZones then return end
+
+	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapInfo = mapID and C_Map.GetMapInfo(mapID)
+	local zoneName = mapInfo and mapInfo.name or "Unknown"
+	local parentMapID = mapInfo and mapInfo.parentMapID
+	local parentInfo = parentMapID and C_Map.GetMapInfo(parentMapID)
+	local parentName = parentInfo and parentInfo.name or "None"
+
+	-- Get real zone name from API
+	local realZone = GetRealZoneText() or "Unknown"
+	local subZone = GetSubZoneText() or ""
+
+	print(string.format("|cff00ff00GatherMate2 DEBUG:|r MapID: |cffffd200%s|r | %s | Parent: %s (%s) | SubZone: %s",
+		tostring(mapID), zoneName, parentName, tostring(parentMapID), subZone))
+end
+
+--[[
+	Midnight Fishing Detection
+	These fishing pools are creatures that you click directly (no fishing rod cast)
+	When clicked, they apply an aura. We detect the aura and save the location.
+]]
+function Collector:MidnightFishingCheck(event, unit)
+	if unit ~= "player" then return end
+	
+	-- Check if we have the midnight fishing aura
+	local auraInfo = C_UnitAuras.GetAuraDataBySpellName("player", "Void Hole Fishing") or 
+	                 C_UnitAuras.GetAuraDataBySpellName("player", "Leerenlochangeln")
+	
+	-- Also try by spell ID if name lookup fails
+	if not auraInfo then
+		auraInfo = C_UnitAuras.GetAuraDataByAuraInstanceID("player", midnightFishingAuraID)
+	end
+	
+	if auraInfo then
+		-- We have the fishing aura, check what we're targeting/mousing over
+		local targetName = UnitName("target") or tooltipLeftText1:GetText()
+		
+		if targetName and midnightFishingPools[targetName] then
+			-- Found a known midnight fishing pool
+			self:addItem(fishSpell, targetName)
+			if GatherMate.db.profile.debugSpells then
+				print("|cFF00FF00GatherMate2:|r Midnight fishing pool detected: " .. targetName)
+			end
+		end
+	end
 end
 
 local CrystalizedWater = (C_Item.GetItemNameByID(37705)) or ""
@@ -185,7 +306,7 @@ end
 function Collector:UIError(event,token,msg)
 	local what = tooltipLeftText1:GetText();
 	if not what then return end
-	if strfind(msg, miningSpell) or (miningSpell2 and strfind(msg, miningSpell2) or (miningSpell3 and strfind(msg, miningSpell3))) then
+	if strfind(msg, miningSpell) or (miningSpell2 and strfind(msg, miningSpell2)) or (miningSpell3 and strfind(msg, miningSpell3)) or (miningSpell4 and strfind(msg, miningSpell4)) then
 		self:addItem(miningSpell,what)
 	elseif strfind(msg, herbSkill) then
 		self:addItem(herbSpell,what)
@@ -201,6 +322,11 @@ end
 ]]
 function Collector:SpellStarted(event,unit,target,guid,spellcast)
 	if unit ~= "player" then return end
+	-- Debug output if enabled in settings
+	if GatherMate.db.profile.debugSpells then
+		local debugSpellName = GetSpellName(spellcast) or "Unknown"
+		print(string.format("|cff00ff00GatherMate2 DEBUG:|r SpellID: %s | Name: %s | Target: %s", tostring(spellcast), debugSpellName, tostring(target)))
+	end	
 	foundTarget = false
 	ga ="No"
 	local spellname = GetSpellName(spellcast)
@@ -231,7 +357,16 @@ local lastNode = ""
 local lastNodeCoords = 0
 
 function Collector:addItem(skill,what)
-	local x, y, zone = GatherMate.HBD:GetPlayerZonePosition()
+	-- Use C_Map.GetBestMapForUnit to get the most specific zone (including instances/subzones eg: Atal'Aman in Zul'Aman)
+	local zone = C_Map.GetBestMapForUnit("player")
+	if not zone then return end
+
+	-- Get player position in world coordinates
+	local wx, wy = GatherMate.HBD:GetPlayerWorldPosition()
+	if not wx or not wy then return end
+
+	-- Convert to zone coordinates
+	local x, y = GatherMate.HBD:GetZoneCoordinatesFromWorld(wx, wy, zone)						  
 	if not x or not y then return end -- no valid data
 
 	-- don't collect any data in the garrison, its always the same location and spams the map
@@ -255,7 +390,12 @@ function Collector:addItem(skill,what)
 	if foundCoord == lastNodeCoords and what == lastNode then return end
 
 	-- tell the core to add it
+	local nodeID = GatherMate:GetIDForNode(node_type, what)
 	local added = GatherMate:AddNodeChecked(zone, x, y, node_type, what)
+	
+	-- DEBUG: Always output collection info
+	print(string.format("|cFF00FF00GatherMate2 Collect:|r MapID: |cFFFFD200%s|r | Node: |cFF00FFFF%s|r | NodeID: |cFFFF00FF%s|r | Added: %s",
+		tostring(zone), tostring(what), tostring(nodeID), tostring(added)))
 	if added then
 		lastNode = what
 		lastNodeCoords = foundCoord
@@ -283,7 +423,22 @@ function Collector:GetWorldTarget()
 	if foundTarget or not spells[curSpell] then return end
 	if (MinimapCluster:IsMouseOver()) then return end
 	local what = tooltipLeftText1:GetText()
+
+	-- DEBUG: Output tooltip text to chat
+	if what and prevSpell then
+		print("|cFF00FF00GatherMate2 Debug:|r Spell: " .. tostring(prevSpell) .. " | Tooltip: " .. tostring(what))
+	end
+
 	local nodeID = GatherMate:GetIDForNode(spells[prevSpell], what)
+
+	-- DEBUG: Output whether node was found
+	if what and prevSpell then
+		if nodeID then
+			print("|cFF00FF00GatherMate2:|r Node found! ID: " .. tostring(nodeID))
+		else
+			print("|cFFFF0000GatherMate2:|r Node NOT found in database!")
+		end
+	end
 	if what and prevSpell and what ~= prevSpell and nodeID then
 		self:addItem(prevSpell,what)
 		foundTarget = true
