@@ -703,10 +703,10 @@ end
         hasUpdates = true
 
         if count > 0 then
-          print(string.format("GatherMate2: Added %d new herb nodes from Kriemhilde data", count))
+          self:Print("Added %d new herb nodes from Kriemhilde data", count)
         end
       end
-	  Kriemhilde_HerbDB = nil  -- Speicher freigeben	 
+	  Kriemhilde_HerbDB = nil  -- Speicher freigeben
     end
 
     -- ========== MINING ==========
@@ -724,7 +724,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          print(string.format("GatherMate2: Added %d new mining nodes from Kriemhilde data", count))
+          self:Print("Added %d new mining nodes from Kriemhilde data", count)
         end
       end
 	  Kriemhilde_MineDB = nil  -- Speicher freigeben
@@ -745,7 +745,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          print(string.format("GatherMate2: Added %d new fishing nodes from Kriemhilde data", count))
+          self:Print("Added %d new fishing nodes from Kriemhilde data", count)
         end
       end
 	  Kriemhilde_FishDB = nil  -- Speicher freigeben
@@ -766,7 +766,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          print(string.format("GatherMate2: Added %d new treasure nodes from Kriemhilde data", count))
+          self:Print("Added %d new treasure nodes from Kriemhilde data", count)
         end
       end
 	  Kriemhilde_TreasureDB = nil  -- Speicher freigeben
@@ -774,9 +774,9 @@ end
 
     -- ========== SUMMARY ==========
     if hasUpdates and totalImported > 0 then
-      print(string.format("GatherMate2: Kriemhilde data imported! Total new nodes: %d", totalImported))
+      self:Print("Kriemhilde data imported! Total new nodes: %d", totalImported)
     elseif hasUpdates and totalImported == 0 then
-      print("GatherMate2: Kriemhilde data checked - no new nodes to add")
+      self:Print("Kriemhilde data checked - no new nodes to add")
     end
   end
 
@@ -787,30 +787,26 @@ end
   function GatherMate:MergeDatabaseSmart(targetDB, sourceDB)
     local imported = 0
 
-    -- Track which coordinates already exist before merge
-    local existingCoords = {}
-    for zoneID, nodes in pairs(targetDB) do
-      if not existingCoords[zoneID] then
-        existingCoords[zoneID] = {}
-      end
-      for coord, _ in pairs(nodes) do
-         existingCoords[zoneID][coord] = true
-      end
-    end
-
-    -- Now merge only new nodes from source
+    -- Optimierte Merge-Funktion ohne zusätzliche existingCoords-Tabelle
     for zoneID, nodes in pairs(sourceDB) do
-      if not targetDB[zoneID] then
-        targetDB[zoneID] = {}
-      end
+      local targetZone = targetDB[zoneID]
 
-      for coord, nodeID in pairs(nodes) do
-        -- Nur hinzufügen wenn noch NICHT vorhanden
-        if not existingCoords[zoneID] or not existingCoords[zoneID][coord] then
+      if not targetZone then
+        -- Ganze Zone ist neu - direkt kopieren (schneller!)
+        targetDB[zoneID] = {}
+        for coord, nodeID in pairs(nodes) do
           targetDB[zoneID][coord] = nodeID
           imported = imported + 1
         end
-        -- Wenn schon vorhanden → nichts tun, User-Daten behalten!
+      else
+        -- Zone existiert - nur neue Coordinates hinzufügen
+        for coord, nodeID in pairs(nodes) do
+          if not targetZone[coord] then
+            targetZone[coord] = nodeID
+            imported = imported + 1
+          end
+          -- Wenn schon vorhanden → nichts tun, User-Daten behalten!
+        end
       end
     end
 
