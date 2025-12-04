@@ -761,3 +761,5 @@ NL["Writhebark"] = true
 NL["Zandalari Archaeology Find"] = true
 NL["Zin'anthid"] = true
 
+-- Patch 11.2.7
+NL["Dornic Fir Lumber"] = true
