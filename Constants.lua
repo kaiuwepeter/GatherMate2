@@ -159,7 +159,7 @@ local node_ids = {
 		[NL["Shore Treasure"]]					= 1129,
 		[NL["Floating Deep Treasure"]]			= 1130,
 
--- midnight nodes
+		-- midnight pools
 		[NL["Hunter Surge"]]					= 1131,
 		[NL["Surface Ripple"]]					= 1132,
 		[NL["Bubbling Bloom"]]					= 1133,
@@ -399,7 +399,7 @@ local node_ids = {
 		[NL["Icecap"]] 							= 429,
 		--[NL["Bloodvine"]] 					= 430, -- zg bush loot
 		[NL["Black Lotus"]] 					= 431,
--- bc nodes
+		-- bc nodes
 		[NL["Felweed"]] 						= 432,
 		[NL["Dreaming Glory"]] 					= 433,
 		[NL["Terocone"]] 						= 434,
@@ -411,7 +411,7 @@ local node_ids = {
 		[NL["Ragveil"]] 						= 440,
 		[NL["Flame Cap"]] 						= 441,
 		[NL["Netherdust Bush"]] 				= 442,
--- wotlk nodes
+		-- wotlk nodes
 		[NL["Adder's Tongue"]]					= 443,
 		--[NL["Constrictor Grass"]]				= 444, -- drop form others
 		--[NL["Deadnettle"]]					= 445, --looted from other plants
@@ -423,7 +423,7 @@ local node_ids = {
 		[NL["Firethorn"]]						= 451,
 		[NL["Frozen Herb"]]						= 452,
 		[NL["Frost Lotus"]]						= 453, -- found in lake wintergrasp only
--- cata nodes
+		-- cata nodes
 		[NL["Dragon's Teeth"]]					= 454,
 		[NL["Sorrowmoss"]]						= 455,
 		[NL["Azshara's Veil"]]					= 456,
@@ -432,7 +432,7 @@ local node_ids = {
 		[NL["Heartblossom"]]					= 459,
 		[NL["Twilight Jasmine"]]				= 460,
 		[NL["Whiptail"]]						= 461,
--- mist nodes
+		-- mist nodes
 		[NL["Golden Lotus"]]					= 462,
 		[NL["Fool's Cap"]]						= 463,
 		[NL["Snow Lily"]]						= 464,
@@ -440,7 +440,7 @@ local node_ids = {
 		[NL["Green Tea Leaf"]]					= 466,
 		[NL["Rain Poppy"]]						= 467,
 		[NL["Sha-Touched Herb"]]				= 468,
--- wod nodes
+		-- wod nodes
 		[NL["Talador Orchid"]]					= 469,
 		[NL["Nagrand Arrowbloom"]]				= 470,
 		[NL["Starflower"]]						= 471,
@@ -448,7 +448,7 @@ local node_ids = {
 		[NL["Fireweed"]]						= 473,
 		[NL["Frostweed"]]						= 474,
 		[NL["Withered Herb"]]					= 475,
--- legion nodes
+		-- legion nodes
 		[NL["Aethril"]]							= 476,
 		[NL["Dreamleaf"]]						= 477,
 		[NL["Felwort"]]							= 478,
@@ -458,7 +458,7 @@ local node_ids = {
 		[NL["Fel-Encrusted Herb"]]				= 482,
 		[NL["Fel-Encrusted Herb Cluster"]]		= 483,
 		[NL["Astral Glory"]]					= 484,
--- bfa nodes
+		-- bfa nodes
 		[NL["Akunda's Bite"]]					= 485,
 		[NL["Anchor Weed"]]						= 486,
 		[NL["Riverbud"]]						= 487,
@@ -467,7 +467,7 @@ local node_ids = {
 		[NL["Star Moss"]]						= 490,
 		[NL["Winter's Kiss"]]					= 491,
 		[NL["Zin'anthid"]]						= 492,
--- shadowlands nodes
+		-- shadowlands nodes
 		[NL["Death Blossom"]]					= 493,
 		[NL["Nightshade"]] = {
 			id = 494,
@@ -487,7 +487,7 @@ local node_ids = {
 			},
 			old_ids = { 1403, 1404, 1405 },
 		},
--- dragonflight nodes
+		-- dragonflight nodes
 		[NL["Hochenblume"]] = {
 			id = 1407,
 			variants = {
@@ -519,7 +519,7 @@ local node_ids = {
 			},
 			old_ids = { 1429, 1430, 1431, 1432, 1433, 1434, 1438 },
 		},
--- tww nodes
+		-- tww nodes
 		[NL["Mycobloom"]]= {
 			id = 1439,
 			variants = {
@@ -561,7 +561,7 @@ local node_ids = {
 			old_ids = { 1480 },
 		},
 
--- midnight nodes
+		-- midnight nodes
 		[NL["Argentleaf"]] = {
 			id = 1481,
 			variants = {
@@ -723,7 +723,7 @@ local node_ids = {
 		[NL["Small Timber"]]					= 701,
 		[NL["Timber"]]							= 702,
 		[NL["Large Timber"]]					= 703,
-		[NL["Dornic Fir Lumber"]] = 704,
+		[NL["Dornic Fir Lumber"]] = 704, -- TWW, Patch 11.2.7
 	},
 }
 GatherMate.nodeIDs, GatherMate.reverseNodeIDs, GatherMate.nodeIDReplacementMap = GatherMate:CreateNodeLookupTables(node_ids)
@@ -1057,6 +1057,15 @@ local node_textures = {
 		[1241] = icon_path.."Mine\\ironclaw.tga",
 		[1242] = icon_path.."Mine\\tin.tga", -- webbed deposit
 		[1243] = icon_path.."Mine\\karesh.tga",
+		-- Midnight
+		[1245] = icon_path.."Mine\\refulgentcopper.png",
+		[1251] = icon_path.."Mine\\refulgentcopper.png",
+		[1259] = icon_path.."Mine\\brilliantsilver.png",
+		[1265] = icon_path.."Mine\\brilliantsilver.png",
+		[1252] = icon_path.."Mine\\umbraltin.png",
+		[1258] = icon_path.."Mine\\umbraltin.png",
+		
+		1245 1251- cooper 1252 1258 Umbral Tin - 1259 1265 Brilliant Silver
 	},
 	["Extract Gas"] = {
 		[301] = icon_path.."Gas\\windy_cloud.tga",
