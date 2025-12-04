@@ -841,5 +841,7 @@ NL["Song Swarm"] = "Singender Schwarm"
 NL["Oceanic Vortex"] = "Oceanic Vortex"
 -- neu 04.12.2025
 NL["Obscured School"] = "Verschleierter Schwarm"
+NL["Bloom Swarm"] = "Blütenschwarm"
+NL["Viscous Void"] = true
 
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@

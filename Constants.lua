@@ -166,8 +166,10 @@ local node_ids = {
 		[NL["Lost Treasures"]]					= 1134,
 		[NL["Sunwell Swarm"]]					= 1135,
 		[NL["Song Swarm"]]						= 1136,
-		[NL["Oceanic Vortex"]  					= 1137,
+		[NL["Oceanic Vortex"]]  				= 1137,
 		[NL["Obscured School"]] 				= 1138,
+		[NL["Bloom Swarm"]] 					= 1139,
+		[NL["Viscous Void"]]					= 1140,
 	},
 	["Mining"] = {
 		[NL["Copper Vein"]] 					= 201,
@@ -962,6 +964,8 @@ local node_textures = {
 		[1136] = icon_path.."Fish\\fish_hook.tga",
 		[1137] = icon_path.."Fish\\fish_hook.tga",
 		[1138] = icon_path.."Fish\\fish_hook.tga",
+		[1139] = icon_path.."Fish\\fish_hook.tga",
+		[1140] = icon_path.."Fish\\fish_hook.tga",
 	},
 	["Mining"] = {
 		[201] = icon_path.."Mine\\copper.tga",
