@@ -158,6 +158,14 @@ local node_ids = {
 		[NL["Royal Ripple"]]					= 1128,
 		[NL["Shore Treasure"]]					= 1129,
 		[NL["Floating Deep Treasure"]]			= 1130,
+
+-- midnight nodes
+		[NL["Hunter Surge"]]					= 1131,
+		[NL["Surface Ripple"]]					= 1132,
+		[NL["Bubbling Bloom"]]					= 1133,
+		[NL["Lost Treasures"]]					= 1134,
+		[NL["Sunwell Swarm"]]					= 1135,
+		[NL["Song Swarm"]]						= 1136,
 	},
 	["Mining"] = {
 		[NL["Copper Vein"]] 					= 201,
@@ -315,6 +323,40 @@ local node_ids = {
 			variants = { NL["Rich Desolate Deposit"] },
 			old_ods = { 1244 },
 		},
+
+-- midnight nodes
+		[NL["Refulgent Copper"]] = {
+			id = 1245,
+			variants = {
+				NL["Voidbound Refulgent Copper"], NL["Lightfused Refulgent Copper"],
+				NL["Rich Refulgent Copper"], NL["Primal Refulgent Copper"],
+				NL["Wild Refulgent Copper"]
+			},
+			old_ids = { 1246, 1247, 1248, 1249, 1250 },
+		},
+		[NL["Refulgent Copper Seam"]]			= 1251,
+
+		[NL["Umbral Tin"]] = {
+			id = 1252,
+			variants = {
+				NL["Voidbound Umbral Tin"], NL["Lightfused Umbral Tin"],
+				NL["Rich Umbral Tin"], NL["Primal Umbral Tin"],
+				NL["Wild Umbral Tin"]
+			},
+			old_ids = { 1253, 1254, 1255, 1256, 1257 },
+		},
+		[NL["Umbral Tin Seam"]]					= 1258,
+
+		[NL["Brilliant Silver"]] = {
+			id = 1259,
+			variants = {
+				NL["Voidbound Brilliant Silver"], NL["Lightfused Brilliant Silver"],
+				NL["Rich Brilliant Silver"], NL["Primal Brilliant Silver"],
+				NL["Wild Brilliant Silver"]
+			},
+			old_ids = { 1260, 1261, 1262, 1263, 1264 },
+		},
+		[NL["Brilliant Silver Seam"]]			= 1265,
 	},
 	["Extract Gas"] = {
 		[NL["Windy Cloud"]] 					= 301,
@@ -517,6 +559,62 @@ local node_ids = {
 			id = 1479,
 			variants = { NL["Lush Phantom Bloom"] },
 			old_ids = { 1480 },
+		},
+
+-- midnight nodes
+		[NL["Argentleaf"]] = {
+			id = 1481,
+			variants = {
+				NL["Wild Argentleaf"], NL["Lush Argentleaf"],
+				NL["Voidbound Argentleaf"], NL["Lightfused Argentleaf"],
+				NL["Primal Argentleaf"], NL["Transplanted Argentleaf"],
+				NL["Transplanted Lush Argentleaf"]
+			},
+			old_ids = { 1482, 1483, 1484, 1485, 1486, 1487, 1488 },
+		},
+
+		[NL["Mana Lily"]] = {
+			id = 1489,
+			variants = {
+				NL["Wild Mana Lily"], NL["Lush Mana Lily"],
+				NL["Voidbound Mana Lily"], NL["Lightfused Mana Lily"],
+				NL["Primal Mana Lily"], NL["Transplanted Mana Lily"],
+				NL["Transplanted Lush Mana Lily"]
+			},
+			old_ids = { 1490, 1491, 1492, 1493, 1494, 1495, 1496 },
+		},
+
+		[NL["Tranquility Bloom"]] = {
+			id = 1497,
+			variants = {
+				NL["Wild Tranquility Bloom"], NL["Lush Tranquility Bloom"],
+				NL["Voidbound Tranquility Bloom"], NL["Lightfused Tranquility Bloom"],
+				NL["Primal Tranquility Bloom"], NL["Transplanted Tranquility Bloom"],
+				NL["Transplanted Lush Tranquility Bloom"]
+			},
+			old_ids = { 1498, 1499, 1500, 1501, 1502, 1503, 1504 },
+		},
+
+		[NL["Sanguithorn"]] = {
+			id = 1505,
+			variants = {
+				NL["Wild Sanguithorn"], NL["Lush Sanguithorn"],
+				NL["Voidbound Sanguithorn"], NL["Lightfused Sanguithorn"],
+				NL["Primal Sanguithorn"], NL["Transplanted Sanguithorn"],
+				NL["Transplanted Lush Sanguithorn"]
+			},
+			old_ids = { 1506, 1507, 1508, 1509, 1510, 1511, 1512 },
+		},
+
+		[NL["Azeroot"]] = {
+			id = 1513,
+			variants = {
+				NL["Wild Azeroot"], NL["Lush Azeroot"],
+				NL["Voidbound Azeroot"], NL["Lightfused Azeroot"],
+				NL["Primal Azeroot"], NL["Transplanted Azeroot"],
+				NL["Transplanted Lush Azeroot"]
+			},
+			old_ids = { 1514, 1515, 1516, 1517, 1518, 1519, 1520 },
 		},
 	},
 	["Treasure"] = {
