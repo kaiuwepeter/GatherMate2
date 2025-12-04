@@ -316,6 +316,7 @@ NL["Deep Sea Monsterbelly School"] = "Ein Schwarm Tiefseemonsterbäuche"
 NL["Deepsea Sagefish School"] = "Ein Schwarm Tiefseeweisenfische"
 NL["Demonic Archaeology Find"] = "Archäologisches Fundstück der Dämonen"
 NL["Dented Footlocker"] = "Verbeulte Schließkiste"
+NL["Disturbed Earth"] = "Aufgewühlte Erde"
 NL["Draconium Deposit"] = "Drakoniumvorkommen"
 NL["Draconium Seam"] = "Drakoniumflöz"
 NL["Draenei Archaeology Find"] = "Archäologischer draeneiischer Fund"
@@ -757,6 +758,6 @@ NL["Zin'anthid"] = "Zin'anthide"
 
 -- Patch 11.2.7
 NL["Dornic Fir Lumber"] = "Dortannenholz"
-NL["Disturbed Earth"] = "Aufgewühlte Erde"
+
 
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@

@@ -319,6 +319,7 @@ NL["Deepsea Sagefish School"] = true
 NL["Demonic Archaeology Find"] = true
 NL["Dented Footlocker"] = true
 NL["Desolate Deposit"] = true
+NL["Disturbed Earth"] = true
 NL["Draconium Deposit"] = true
 NL["Draconium Seam"] = true
 NL["Draenei Archaeology Find"] = true
@@ -763,6 +764,5 @@ NL["Zin'anthid"] = true
 
 -- Patch 11.2.7
 NL["Dornic Fir Lumber"] = true
-"NL["Disturbed Earth"] = true"
 
 --@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Nodes", table-name="NL")@
