@@ -750,6 +750,27 @@ end
       end
 	  Kriemhilde_FishDB = nil  -- Speicher freigeben
     end
+	
+	-- ========== Logging ==========
+    if Kriemhilde_LoggingDB and Kriemhilde_LoggingData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.fish or 0
+
+      if Kriemhilde_LoggingData_Version > lastVersion then
+        local count = self:MergeDatabaseSmart(
+          GatherMate2LoggingDB,
+          Kriemhilde_LoggingDB
+        )
+
+        self.db.global.kriemhildeVersions.logging = Kriemhilde_FishLogging_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print("Added %d new lumper nodes from Kriemhilde data", count)
+        end
+      end
+	  Kriemhilde_LoggingDB = nil  -- Speicher freigeben
+    end
 
     -- ========== TREASURE ==========
     if Kriemhilde_TreasureDB and Kriemhilde_TreasureData_Version then
