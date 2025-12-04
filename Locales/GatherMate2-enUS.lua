@@ -215,6 +215,16 @@ L["World Map Icons"] = true
 L["World Map Icons Clickable"] = true
 L["Wrath of the Lich King"] = true
 
+-- Kriemhildle Debug Options
+L["Kriemhildle"] = true
+L["Debug Options"] = true
+L["Debug Zone Changes"] = true
+L["Debug Spell Casts"] = true
+L["Debug Node Collection"] = true
+L["Enable debug output for zone changes"] = true
+L["Enable debug output for spell casts and detection"] = true
+L["Enable debug output for node collection"] = true
+L["KRIEMHILDLE_DESC"] = "These debug options help track node collection, spell detection, and zone identification. Enable them to troubleshoot issues with node detection."
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "enUS", true, debug)
 

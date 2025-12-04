@@ -212,6 +212,16 @@ L["World Map Icons"] = "Weltkarten Symbole"
 L["World Map Icons Clickable"] = "Weltkarten-Symbole anklickbar"
 L["Wrath of the Lich King"] = "Wrath of the Lich King"
 
+-- Kriemhildle Debug Options
+L["Kriemhildle"] = "Kriemhildle"
+L["Debug Options"] = "Debug-Optionen"
+L["Debug Zone Changes"] = "Debug Zonenwechsel"
+L["Debug Spell Casts"] = "Debug Zaubersprüche"
+L["Debug Node Collection"] = "Debug Node-Sammlung"
+L["Enable debug output for zone changes"] = "Aktiviert Debug-Ausgabe für Zonenwechsel"
+L["Enable debug output for spell casts and detection"] = "Aktiviert Debug-Ausgabe für Zaubersprüche und Erkennung"
+L["Enable debug output for node collection"] = "Aktiviert Debug-Ausgabe für Node-Sammlung"
+L["KRIEMHILDLE_DESC"] = "Diese Debug-Optionen helfen beim Nachverfolgen von Node-Sammlung, Zaubererkennung und Zonenidentifizierung. Aktiviere sie, um Probleme mit der Node-Erkennung zu beheben."
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end

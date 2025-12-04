@@ -387,10 +387,12 @@ function Collector:addItem(skill,what)
 	-- tell the core to add it
 	local nodeID = GatherMate:GetIDForNode(node_type, what)
 	local added = GatherMate:AddNodeChecked(zone, x, y, node_type, what)
-	
-	-- DEBUG: Always output collection info
-	print(string.format("|cFF00FF00GatherMate2 Collect:|r MapID: |cFFFFD200%s|r | Node: |cFF00FFFF%s|r | NodeID: |cFFFF00FF%s|r | Added: %s",
-		tostring(zone), tostring(what), tostring(nodeID), tostring(added)))
+
+	-- DEBUG: Output collection info if enabled
+	if GatherMate.db.profile.debugCollect then
+		print(string.format("|cFF00FF00GatherMate2 Collect:|r MapID: |cFFFFD200%s|r | Node: |cFF00FFFF%s|r | NodeID: |cFFFF00FF%s|r | Added: %s",
+			tostring(zone), tostring(what), tostring(nodeID), tostring(added)))
+	end
 	if added then
 		lastNode = what
 		lastNodeCoords = foundCoord
@@ -420,14 +422,14 @@ function Collector:GetWorldTarget()
 	local what = tooltipLeftText1:GetText()
 
 	-- DEBUG: Output tooltip text to chat
-	if what and prevSpell then
+	if GatherMate.db.profile.debugCollect and what and prevSpell then
 		print("|cFF00FF00GatherMate2 Debug:|r Spell: " .. tostring(prevSpell) .. " | Tooltip: " .. tostring(what))
 	end
 
 	local nodeID = GatherMate:GetIDForNode(spells[prevSpell], what)
 
 	-- DEBUG: Output whether node was found
-	if what and prevSpell then
+	if GatherMate.db.profile.debugCollect and what and prevSpell then
 		if nodeID then
 			print("|cFF00FF00GatherMate2:|r Node found! ID: " .. tostring(nodeID))
 		else

@@ -1133,6 +1133,45 @@ local faqOptions = {
 	},
 }
 
+local kriemhildeOptions = {
+	type = "group",
+	name = L["Kriemhildle"],
+	get = get,
+	set = set,
+	args = {
+		desc = {
+			order = 0,
+			type = "description",
+			name = L["KRIEMHILDLE_DESC"],
+			width = "full",
+		},
+		debugZones = {
+			order = 1,
+			name = L["Debug Zone Changes"],
+			desc = L["Enable debug output for zone changes"],
+			type = "toggle",
+			arg = "debugZones",
+			width = "full",
+		},
+		debugSpells = {
+			order = 2,
+			name = L["Debug Spell Casts"],
+			desc = L["Enable debug output for spell casts and detection"],
+			type = "toggle",
+			arg = "debugSpells",
+			width = "full",
+		},
+		debugCollect = {
+			order = 3,
+			name = L["Debug Node Collection"],
+			desc = L["Enable debug output for node collection"],
+			type = "toggle",
+			arg = "debugCollect",
+			width = "full",
+		},
+	},
+}
+
 --[[
 	Initialize the Config System
 ]]
@@ -1165,6 +1204,9 @@ function Config:OnInitialize()
 
 	acr:RegisterOptionsTable("GM2/FAQ", faqOptions)
 	acd:AddToBlizOptions("GM2/FAQ", "FAQ", "GatherMate 2")
+
+	acr:RegisterOptionsTable("GM2/Kriemhildle", kriemhildeOptions)
+	acd:AddToBlizOptions("GM2/Kriemhildle", "Kriemhildle", "GatherMate 2")
 
 	local function openOptions()
 		Settings.OpenToCategory("GatherMate 2")
