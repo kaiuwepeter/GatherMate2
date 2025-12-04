@@ -724,8 +724,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          print(string.format("GatherMate2: Added %d new mining nodes from Kriemhilde
- data", count))
+          print(string.format("GatherMate2: Added %d new mining nodes from Kriemhilde data", count))
         end
       end
 	  Kriemhilde_MineDB = nil  -- Speicher freigeben
