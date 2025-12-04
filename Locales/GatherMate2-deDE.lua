@@ -189,6 +189,7 @@ L["The distance in yards to a node before it turns into a tracking circle"] = "D
 L["The Frozen Sea"] = "Die gefrorene See"
 L["The North Sea"] = "Das nördliche Meer"
 L["The War Within"] = "The War Within"
+L["Midnight"] = "Midnight"
 L["Toggle if World Map icons are clickable (to remove them or generate way points)."] = "Interaktion mit Symbolen auf der Weltkarte an-/ausschalten (um sie zu entfernen oder um Wegpunkte zu erstellen)"
 L["Toggle showing archaeology nodes."] = "Anzeige der Archäologie Knoten ein-/ausschalten."
 L["Toggle showing fishing nodes."] = "Anzeige der Angel Knoten ein-/ausschalten."

@@ -192,6 +192,7 @@ L["The distance in yards to a node before it turns into a tracking circle"] = tr
 L["The Frozen Sea"] = true
 L["The North Sea"] = true
 L["The War Within"] = true
+L["Midnight"] = true
 L["Toggle if World Map icons are clickable (to remove them or generate way points)."] = true
 L["Toggle showing archaeology nodes."] = true
 L["Toggle showing fishing nodes."] = true
