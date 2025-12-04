@@ -755,3 +755,5 @@ NL["Writhebark"] = "Krümmrinde"
 NL["Zandalari Archaeology Find"] = "Archäologischer Fund der Zandalari"
 NL["Zin'anthid"] = "Zin'anthide"
 
+-- Patch 11.2.7
+NL["Dornic Fir Lumber"] = "Dortannenholz"

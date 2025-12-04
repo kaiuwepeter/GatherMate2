@@ -622,6 +622,7 @@ local node_ids = {
 		[NL["Small Timber"]]					= 701,
 		[NL["Timber"]]							= 702,
 		[NL["Large Timber"]]					= 703,
+		[NL["Dornic Fir Lumber"]] = 704,
 	},
 }
 GatherMate.nodeIDs, GatherMate.reverseNodeIDs, GatherMate.nodeIDReplacementMap = GatherMate:CreateNodeLookupTables(node_ids)
@@ -1170,6 +1171,7 @@ local node_textures = {
 		[701] = icon_path.."Logging\\timber.tga",
 		[702] = icon_path.."Logging\\timber.tga",
 		[703] = icon_path.."Logging\\timber.tga",
+		[704] = icon_path.."Logging\\timber.tga",
 	},
 }
 GatherMate.nodeTextures = node_textures
