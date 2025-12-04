@@ -1,0 +1,13 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Classic
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBCL, GatherMate2MineDBCL, GatherMate2FishDBCL, GatherMate2GasDBCL, GatherMate2TreasureDBCL, GatherMate2ArchaeologyDBCL, GatherMate2LoggingDBCL
+## X-GM2-Storage-Tag: CL
+## X-GM2-Storage-Zones: 1, 7, 10, 14, 15, 17, 18, 21, 22, 23, 25, 26, 27, 32, 36, 37, 42, 47, 48, 49, 50, 51, 52, 56, 57, 62, 63, 64, 65, 66, 69, 70, 71, 76, 77, 78, 80, 81, 83, 199, 210, 224
+..\GatherMate2\LoadAddOnStorage.lua

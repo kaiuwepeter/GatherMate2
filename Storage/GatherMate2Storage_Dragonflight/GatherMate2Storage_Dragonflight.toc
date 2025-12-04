@@ -1,4 +1,4 @@
-## Interface: 110200,110205
+## Interface: 110200,110205,120000
 ## Title: GatherMate2: Storage for Dragonflight
 ## Author: nevcairiel
 ## Group: GatherMate2
@@ -9,5 +9,5 @@
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: GatherMate2HerbDBDF, GatherMate2MineDBDF, GatherMate2FishDBDF, GatherMate2GasDBDF, GatherMate2TreasureDBDF, GatherMate2ArchaeologyDBDF, GatherMate2LoggingDBDF
 ## X-GM2-Storage-Tag: DF
-## X-GM2-Storage-Zones: 2022, 2023, 2024, 2025, 2112, 2151, 2133, 2200, 2239, 2262, 2199, 2085
+## X-GM2-Storage-Zones: 2022, 2023, 2024, 2025, 2085, 2112, 2133, 2151, 2199, 2200, 2239, 2262, 2405, 2413
 ..\GatherMate2\LoadAddOnStorage.lua
