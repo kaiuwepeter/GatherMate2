@@ -126,6 +126,8 @@ function GatherMate:OnEnable()
 		self:UpgradeNodeIDs()
 		self.db.global.data_version = 7
 	end
+	-- Import Kriemhilde data on first run or when updated
+    self:ImportKriemhildeData()
 end
 
 function GatherMate:RemoveGarrisonNodes()
@@ -673,3 +675,141 @@ end
 function GatherMate:MapLocalize(map)
 	return self.HBD:GetLocalizedMap(map)
 end
+
+  --[[
+   Import Kriemhilde initial data on first run or when data is updated
+  ]]
+  function GatherMate:ImportKriemhildeData()
+    -- Initialisiere Versions-Tracking
+    if not self.db.global.kriemhildeVersions then
+      self.db.global.kriemhildeVersions = {}
+    end
+
+    local totalImported = 0
+    local hasUpdates = false
+
+    -- ========== HERBS ==========
+    if Kriemhilde_HerbDB and Kriemhilde_HerbData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.herb or 0
+
+      if Kriemhilde_HerbData_Version > lastVersion then
+         local count = self:MergeDatabaseSmart(
+          GatherMate2HerbDB,
+          Kriemhilde_HerbDB
+        )
+
+        self.db.global.kriemhildeVersions.herb = Kriemhilde_HerbData_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print("Added %d new herb nodes from Kriemhilde data", count)
+        end
+      end
+	  Kriemhilde_HerbDB = nil  -- Speicher freigeben
+    end
+
+    -- ========== MINING ==========
+    if Kriemhilde_MineDB and Kriemhilde_MineData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.mine or 0
+
+      if Kriemhilde_MineData_Version > lastVersion then
+        local count = self:MergeDatabaseSmart(
+          GatherMate2MineDB,
+          Kriemhilde_MineDB
+        )
+
+        self.db.global.kriemhildeVersions.mine = Kriemhilde_MineData_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print("Added %d new mining nodes from Kriemhilde data", count)
+        end
+      end
+	  Kriemhilde_MineDB = nil  -- Speicher freigeben
+    end
+
+    -- ========== FISHING ==========
+    if Kriemhilde_FishDB and Kriemhilde_FishData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.fish or 0
+
+      if Kriemhilde_FishData_Version > lastVersion then
+        local count = self:MergeDatabaseSmart(
+          GatherMate2FishDB,
+          Kriemhilde_FishDB
+        )
+
+        self.db.global.kriemhildeVersions.fish = Kriemhilde_FishData_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print("Added %d new fishing nodes from Kriemhilde data", count)
+        end
+      end
+	  Kriemhilde_FishDB = nil  -- Speicher freigeben
+    end
+
+    -- ========== TREASURE ==========
+    if Kriemhilde_TreasureDB and Kriemhilde_TreasureData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.treasure or 0
+
+      if Kriemhilde_TreasureData_Version > lastVersion then
+        local count = self:MergeDatabaseSmart(
+          GatherMate2TreasureDB,
+          Kriemhilde_TreasureDB
+        )
+
+        self.db.global.kriemhildeVersions.treasure = Kriemhilde_TreasureData_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print("Added %d new treasure nodes from Kriemhilde data", count)
+        end
+      end
+	  Kriemhilde_TreasureDB = nil  -- Speicher freigeben
+    end
+
+    -- ========== SUMMARY ==========
+    if hasUpdates and totalImported > 0 then
+      self:Print("Kriemhilde data imported! Total new nodes: %d", totalImported)
+    elseif hasUpdates and totalImported == 0 then
+      self:Print("Kriemhilde data checked - no new nodes to add")
+    end
+  end
+
+  --[[
+    Smart merge function: Only adds new nodes, never overwrites existing ones
+    Returns: Number of imported nodes
+  ]]
+  function GatherMate:MergeDatabaseSmart(targetDB, sourceDB)
+    local imported = 0
+
+    -- Optimierte Merge-Funktion ohne zusätzliche existingCoords-Tabelle
+    for zoneID, nodes in pairs(sourceDB) do
+      local targetZone = targetDB[zoneID]
+
+      if not targetZone then
+        -- Ganze Zone ist neu - direkt kopieren (schneller!)
+        targetDB[zoneID] = {}
+        for coord, nodeID in pairs(nodes) do
+          targetDB[zoneID][coord] = nodeID
+          imported = imported + 1
+        end
+      else
+        -- Zone existiert - nur neue Coordinates hinzufügen
+        for coord, nodeID in pairs(nodes) do
+          if not targetZone[coord] then
+            targetZone[coord] = nodeID
+            imported = imported + 1
+          end
+          -- Wenn schon vorhanden → nichts tun, User-Daten behalten!
+        end
+      end
+    end
+
+    return imported
+  end
+  

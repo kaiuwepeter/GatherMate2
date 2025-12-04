@@ -25,6 +25,7 @@ local pickSpell = (GetSpellName(1804))
 local archSpell = (GetSpellName(73979)) -- Searching for Artifacts spell
 local sandStormSpell = (GetSpellName(93473)) -- Sandstorm spell cast by the camel
 local loggingSpell = (GetSpellName(167895))
+local loggingSpell2 = (GetSpellName(1239682)) -- Woodchopping / Holzhacken  Patch: 11.2.7
 
 local spells =
 { -- spellname to "database name"
@@ -40,7 +41,9 @@ local spells =
 	[archSpell] = "Archaeology",
 	[sandStormSpell] = "Treasure",
 	[loggingSpell] = "Logging",
+	[loggingSpell2] = "Logging",
 	[205243] = "Treasure", -- skinning ground warts
+	[469894] = "Treasure", -- Erde ebnen / Level Earth (Disturbed Earth)
 }
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind = string.find
