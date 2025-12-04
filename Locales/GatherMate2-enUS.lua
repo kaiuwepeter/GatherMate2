@@ -763,3 +763,6 @@ NL["Zin'anthid"] = true
 
 -- Patch 11.2.7
 NL["Dornic Fir Lumber"] = true
+"NL["Disturbed Earth"] = true"
+
+--@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Nodes", table-name="NL")@

@@ -757,3 +757,6 @@ NL["Zin'anthid"] = "Zin'anthide"
 
 -- Patch 11.2.7
 NL["Dornic Fir Lumber"] = "Dortannenholz"
+NL["Disturbed Earth"] = "Aufgewühlte Erde"
+
+--@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@
