@@ -1175,7 +1175,7 @@ local node_textures = {
 		[701] = icon_path.."Logging\\timber.tga",
 		[702] = icon_path.."Logging\\timber.tga",
 		[703] = icon_path.."Logging\\timber.tga",
-		[704] = icon_path.."Logging\\timber.tga",
+		[704] = icon_path.."Logging\\timber.png",
 	},
 }
 GatherMate.nodeTextures = node_textures

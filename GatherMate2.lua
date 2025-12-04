@@ -703,7 +703,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          self:Print("Added %d new herb nodes from Kriemhilde data", count)
+          self:Print(string.format("Added %d new herb nodes from Kriemhilde data", count))
         end
       end
 	  Kriemhilde_HerbDB = nil  -- Speicher freigeben
@@ -724,7 +724,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          self:Print("Added %d new mining nodes from Kriemhilde data", count)
+          self:Print(string.format("Added %d new mining nodes from Kriemhilde data", count))
         end
       end
 	  Kriemhilde_MineDB = nil  -- Speicher freigeben
@@ -745,10 +745,31 @@ end
         hasUpdates = true
 
         if count > 0 then
-          self:Print("Added %d new fishing nodes from Kriemhilde data", count)
+          self:Print(string.format("Added %d new fishing nodes from Kriemhilde data", count))
         end
       end
 	  Kriemhilde_FishDB = nil  -- Speicher freigeben
+    end
+	
+	-- ========== Logging ==========
+    if Kriemhilde_LoggingDB and Kriemhilde_LoggingData_Version then
+      local lastVersion = self.db.global.kriemhildeVersions.fish or 0
+
+      if Kriemhilde_LoggingData_Version > lastVersion then
+        local count = self:MergeDatabaseSmart(
+          GatherMate2LoggingDB,
+          Kriemhilde_LoggingDB
+        )
+
+        self.db.global.kriemhildeVersions.logging = Kriemhilde_FishLogging_Version
+        totalImported = totalImported + count
+        hasUpdates = true
+
+        if count > 0 then
+          self:Print(string.format("Added %d new logging nodes from Kriemhilde data", count))
+        end
+      end
+	  Kriemhilde_LoggingDB = nil  -- Speicher freigeben
     end
 
     -- ========== TREASURE ==========
@@ -766,7 +787,7 @@ end
         hasUpdates = true
 
         if count > 0 then
-          self:Print("Added %d new treasure nodes from Kriemhilde data", count)
+          self:Print(string.format("Added %d new treasure nodes from Kriemhilde data", count))
         end
       end
 	  Kriemhilde_TreasureDB = nil  -- Speicher freigeben
@@ -774,7 +795,7 @@ end
 
     -- ========== SUMMARY ==========
     if hasUpdates and totalImported > 0 then
-      self:Print("Kriemhilde data imported! Total new nodes: %d", totalImported)
+      self:Print(string.format("Kriemhilde data imported! Total new nodes: %d", totalImported))
     elseif hasUpdates and totalImported == 0 then
       self:Print("Kriemhilde data checked - no new nodes to add")
     end
