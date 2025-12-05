@@ -413,7 +413,6 @@ NL["Floating Shipwreck Debris"] = "Schwimmende Schiffswrack Trümmer"
 NL["Floating Wreckage"] = "Treibende Wrackteile"
 NL["Floating Wreckage Pool"] = "Floating Wreckage Pool"
 NL["Fool's Cap"] = "Narrenkappe"
-NL["Forgotten Amani Cache"] = "Vergessenes Versteck der Amani"
 NL["Fossil Archaeology Find"] = "Archäologischer fossiler Fund"
 NL["Foxflower"] = "Fuchsblume"
 NL["Frenzied Fangtooth School"] = "Ein Schwarm rasender Tigerfische"
@@ -874,9 +873,14 @@ NL["Lost Treasures"] = "Verlorene Schätze"
 NL["Sunwell Swarm"] = "Sonnenbrunnenschwarm"
 NL["Song Swarm"] = "Singender Schwarm"
 NL["Oceanic Vortex"] = "Oceanic Vortex"
--- neu 04.12.2025
+-- Fische neu: 04.12.2025
 NL["Obscured School"] = "Verschleierter Schwarm"
 NL["Bloom Swarm"] = "Blütenschwarm"
 NL["Viscous Void"] = true
+
+-- Schätze (Treasure)
+NL["Forgotten Amani Cache"] = "Vergessenes Versteck der Amani"
+NL["Pure Stone Cache"] = "Reinsteinvorräte"
+
 
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@

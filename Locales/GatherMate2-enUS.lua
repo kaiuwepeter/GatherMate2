@@ -614,6 +614,7 @@ NL["Prismatic Crystal"] = true
 NL["Prismatic Leaper School"] = true
 NL["Progenium Deposit"] = true
 NL["Pure Saronite Deposit"] = true
+NL["Pure Stone Cache"] = true
 NL["Pure Water"] = true
 NL["Purple Lotus"] = true
 NL["Pyrite Deposit"] = true

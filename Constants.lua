@@ -693,6 +693,9 @@ local node_ids = {
 		[NL["Ground Wart"]]						= 565,
 		-- The War Within
 		[NL["Disturbed Earth"]]					= 566,
+		-- Midnight
+		[NL["Forgotten Amani Cache"]]			= 567,
+		[NL["Pure Stone Cache"]]				= 568,
 
 	},
 	["Archaeology"] = {
@@ -1308,6 +1311,8 @@ local node_textures = {
 		[564] = icon_path.."Treasure\\honey.tga",
 		[565] = icon_path.."Treasure\\hide.tga",
 		[566] = icon_path.."Treasure\\wax.png", -- Disturbed Earth
+		[567] = icon_path.."Treasure\\chest.tga", -- Forgotten Amani Cache
+		[568] = icon_path.."Treasure\\chest.tga", -- Pure Stone Cache
 	},
 	["Archaeology"] = {
 		[601] = icon_path.."Archaeology\\shovel.tga",
