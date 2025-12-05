@@ -21,9 +21,14 @@ local defaults = {
 		miniscale	= 0.75,
 		alpha       = 1,
 		show = {
+			["Herb Gathering"] = "always",
+			["Mining"] = "always",
+			["Fishing"] = "always",
+			["Extract Gas"] = "always",
 			["Treasure"] = "always",
-			["Logging"]  = "active",
-			["*"] = "with_profession"
+			["Archaeology"] = "always",
+			["Logging"] = "always",
+			["*"] = "always"
 		},
 		showMinimap = true,
 		showWorldMap = true,
@@ -692,125 +697,94 @@ function GatherMate:MapLocalize(map)
 end
 
   --[[
-   Import Kriemhilde initial data on first run or when data is updated
+   Import Kriemhilde data with new update system
+   Supports main database + incremental updates
   ]]
   function GatherMate:ImportKriemhildeData()
-    -- Initialisiere Versions-Tracking
+    -- Initialize version tracking
     if not self.db.global.kriemhildeVersions then
       self.db.global.kriemhildeVersions = {}
+    end
+    if not self.db.global.kriemhildeUpdateNumbers then
+      self.db.global.kriemhildeUpdateNumbers = {}
     end
 
     local totalImported = 0
     local hasUpdates = false
+    local databases = {
+      {name = "herb", mainDB = "Kriemhilde_HerbDB", updateDB = "Kriemhilde_HerbUpdateDB",
+       version = "Kriemhilde_HerbData_Version", updateNum = "Kriemhilde_HerbData_UpdateNumber",
+       baseVersion = "Kriemhilde_HerbData_BaseVersion", target = GatherMate2HerbDB, displayName = "herb"},
+      {name = "mine", mainDB = "Kriemhilde_MineDB", updateDB = "Kriemhilde_MineUpdateDB",
+       version = "Kriemhilde_MineData_Version", updateNum = "Kriemhilde_MineData_UpdateNumber",
+       baseVersion = "Kriemhilde_MineData_BaseVersion", target = GatherMate2MineDB, displayName = "mining"},
+      {name = "fish", mainDB = "Kriemhilde_FishDB", updateDB = "Kriemhilde_FishUpdateDB",
+       version = "Kriemhilde_FishData_Version", updateNum = "Kriemhilde_FishData_UpdateNumber",
+       baseVersion = "Kriemhilde_FishData_BaseVersion", target = GatherMate2FishDB, displayName = "fishing"},
+      {name = "logging", mainDB = "Kriemhilde_LoggingDB", updateDB = "Kriemhilde_LoggingUpdateDB",
+       version = "Kriemhilde_LoggingData_Version", updateNum = "Kriemhilde_LoggingData_UpdateNumber",
+       baseVersion = "Kriemhilde_LoggingData_BaseVersion", target = GatherMate2LoggingDB, displayName = "logging"},
+      {name = "treasure", mainDB = "Kriemhilde_TreasureDB", updateDB = "Kriemhilde_TreasureUpdateDB",
+       version = "Kriemhilde_TreasureData_Version", updateNum = "Kriemhilde_TreasureData_UpdateNumber",
+       baseVersion = "Kriemhilde_TreasureData_BaseVersion", target = GatherMate2TreasureDB, displayName = "treasure"},
+    }
 
-    -- ========== HERBS ==========
-    if Kriemhilde_HerbDB and Kriemhilde_HerbData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.herb or 0
+    for _, db in ipairs(databases) do
+      local sourceDB = _G[db.mainDB]
+      local sourceUpdateDB = _G[db.updateDB]
+      local currentVersion = _G[db.version]
+      local updateNumber = _G[db.updateNum] or 0
+      local baseVersion = _G[db.baseVersion]
 
-      if Kriemhilde_HerbData_Version > lastVersion then
-         local count = self:MergeDatabaseSmart(
-          GatherMate2HerbDB,
-          Kriemhilde_HerbDB
-        )
+      if sourceDB and currentVersion then
+        local lastVersion = self.db.global.kriemhildeVersions[db.name] or 0
+        local lastUpdateNum = self.db.global.kriemhildeUpdateNumbers[db.name] or -1
 
-        self.db.global.kriemhildeVersions.herb = Kriemhilde_HerbData_Version
-        totalImported = totalImported + count
-        hasUpdates = true
+        -- Check if we need to import
+        local needsImport = false
+        local importType = ""
+        local count = 0
 
-        if count > 0 then
-          self:Print(string.format("Added %d new herb nodes from Kriemhilde data", count))
+        if updateNumber == 0 and currentVersion > lastVersion then
+          -- New main database (update number 0)
+          needsImport = true
+          importType = "main"
+          count = self:MergeDatabaseSmart(db.target, sourceDB)
+          self.db.global.kriemhildeVersions[db.name] = currentVersion
+          self.db.global.kriemhildeUpdateNumbers[db.name] = 0
+        elseif updateNumber > 0 and updateNumber > lastUpdateNum and sourceUpdateDB then
+          -- Incremental update (update number > 0)
+          needsImport = true
+          importType = "update"
+          count = self:MergeDatabaseSmart(db.target, sourceUpdateDB)
+          self.db.global.kriemhildeUpdateNumbers[db.name] = updateNumber
+        end
+
+        if needsImport and count > 0 then
+          totalImported = totalImported + count
+          hasUpdates = true
+
+          if importType == "main" then
+            self:Print(string.format("Added %d new %s nodes from Kriemhilde data (%s)",
+              count, db.displayName, L["KRIEMHILDE_NEW_DATABASE"]))
+          else
+            self:Print(string.format("Added %d new %s nodes from Kriemhilde data (%s)",
+              count, db.displayName, string.format(L["KRIEMHILDE_UPDATE_APPLIED"], updateNumber)))
+          end
+        end
+
+        -- Free memory
+        _G[db.mainDB] = nil
+        if _G[db.updateDB] then
+          _G[db.updateDB] = nil
         end
       end
-	  Kriemhilde_HerbDB = nil  -- Speicher freigeben
     end
 
-    -- ========== MINING ==========
-    if Kriemhilde_MineDB and Kriemhilde_MineData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.mine or 0
-
-      if Kriemhilde_MineData_Version > lastVersion then
-        local count = self:MergeDatabaseSmart(
-          GatherMate2MineDB,
-          Kriemhilde_MineDB
-        )
-
-        self.db.global.kriemhildeVersions.mine = Kriemhilde_MineData_Version
-        totalImported = totalImported + count
-        hasUpdates = true
-
-        if count > 0 then
-          self:Print(string.format("Added %d new mining nodes from Kriemhilde data", count))
-        end
-      end
-	  Kriemhilde_MineDB = nil  -- Speicher freigeben
-    end
-
-    -- ========== FISHING ==========
-    if Kriemhilde_FishDB and Kriemhilde_FishData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.fish or 0
-
-      if Kriemhilde_FishData_Version > lastVersion then
-        local count = self:MergeDatabaseSmart(
-          GatherMate2FishDB,
-          Kriemhilde_FishDB
-        )
-
-        self.db.global.kriemhildeVersions.fish = Kriemhilde_FishData_Version
-        totalImported = totalImported + count
-        hasUpdates = true
-
-        if count > 0 then
-          self:Print(string.format("Added %d new fishing nodes from Kriemhilde data", count))
-        end
-      end
-	  Kriemhilde_FishDB = nil  -- Speicher freigeben
-    end
-	
-	-- ========== Logging ==========
-    if Kriemhilde_LoggingDB and Kriemhilde_LoggingData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.logging or 0
-
-      if Kriemhilde_LoggingData_Version > lastVersion then
-        local count = self:MergeDatabaseSmart(
-          GatherMate2LoggingDB,
-          Kriemhilde_LoggingDB
-        )
-
-        self.db.global.kriemhildeVersions.logging = Kriemhilde_LoggingData_Version
-        totalImported = totalImported + count
-        hasUpdates = true
-
-        if count > 0 then
-          self:Print(string.format("Added %d new logging nodes from Kriemhilde data", count))
-        end
-      end
-	  Kriemhilde_LoggingDB = nil  -- Speicher freigeben
-    end
-
-    -- ========== TREASURE ==========
-    if Kriemhilde_TreasureDB and Kriemhilde_TreasureData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.treasure or 0
-
-      if Kriemhilde_TreasureData_Version > lastVersion then
-        local count = self:MergeDatabaseSmart(
-          GatherMate2TreasureDB,
-          Kriemhilde_TreasureDB
-        )
-
-        self.db.global.kriemhildeVersions.treasure = Kriemhilde_TreasureData_Version
-        totalImported = totalImported + count
-        hasUpdates = true
-
-        if count > 0 then
-          self:Print(string.format("Added %d new treasure nodes from Kriemhilde data", count))
-        end
-      end
-	  Kriemhilde_TreasureDB = nil  -- Speicher freigeben
-    end
-
-    -- ========== SUMMARY ==========
+    -- Show reload reminder if anything was imported
     if hasUpdates and totalImported > 0 then
       self:Print(string.format("Kriemhilde data imported! Total new nodes: %d", totalImported))
+      self:Print(L["KRIEMHILDE_RELOAD_REQUIRED"])
     elseif hasUpdates and totalImported == 0 then
       self:Print("Kriemhilde data checked - no new nodes to add")
     end

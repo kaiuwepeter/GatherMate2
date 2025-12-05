@@ -231,6 +231,7 @@ L["DEBUG_OPTIONS_DESC"] = "These debug options help track node collection, spell
 L["WorldMap Toggle Button"] = true
 L["Show WorldMap Toggle Button"] = true
 L["Enable toggle button on WorldMap for quick node filtering"] = true
+L["USE_WORLDMAP_BUTTON_HINT"] = "Note: Node visibility is now controlled via the WorldMap Toggle Button. Enable it in Kriemhilde settings, then use the button on the WorldMap to show/hide specific node types."
 L["Toggle All"] = true
 L["Left-click: Toggle all nodes"] = true
 L["Right-click: Open filter menu"] = true
@@ -243,6 +244,11 @@ L["Gas Nodes"] = true
 L["Treasure Nodes"] = true
 L["Archaeology Nodes"] = true
 L["Logging Nodes"] = true
+
+-- Kriemhilde Import Messages
+L["KRIEMHILDE_RELOAD_REQUIRED"] = "|cffFF6600Important:|r Please type |cffFFD700/reload|r to display the newly imported nodes on your map!"
+L["KRIEMHILDE_UPDATE_APPLIED"] = "Update #%d applied"
+L["KRIEMHILDE_NEW_DATABASE"] = "New database imported"
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "enUS", true, debug)
 
@@ -410,6 +416,7 @@ NL["Floating Shipwreck Debris"] = true
 NL["Floating Wreckage"] = true
 NL["Floating Wreckage Pool"] = true
 NL["Fool's Cap"] = true
+NL["Forgotten Amani Cache"] = true
 NL["Fossil Archaeology Find"] = true
 NL["Foxflower"] = true
 NL["Frenzied Fangtooth School"] = true

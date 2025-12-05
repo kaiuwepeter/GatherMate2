@@ -69,7 +69,8 @@ local generalOptions = {
 		desc = {
 			order = 0,
 			type = "description",
-			name = L["Selected databases are shown on both the World Map and Minimap."],
+			name = L["USE_WORLDMAP_BUTTON_HINT"],
+			fontSize = "medium",
 		},
 		showMinerals = {
 			order = 1,
@@ -77,7 +78,8 @@ local generalOptions = {
 			desc = L["Toggle showing mining nodes."],
 			type = "select",
 			values = prof_options,
-			arg = "Mining"
+			arg = "Mining",
+			disabled = true,
 		},
 		showHerbs = {
 			order = 2,
@@ -85,7 +87,8 @@ local generalOptions = {
 			desc = L["Toggle showing herbalism nodes."],
 			type = "select",
 			values = prof_options,
-			arg = "Herb Gathering"
+			arg = "Herb Gathering",
+			disabled = true,
 		},
 		showFishes = {
 			order = 3,
@@ -93,7 +96,8 @@ local generalOptions = {
 			desc = L["Toggle showing fishing nodes."],
 			type = "select",
 			values = prof_options,
-			arg = "Fishing"
+			arg = "Fishing",
+			disabled = true,
 		},
 		showGases = {
 			order = 4,
@@ -102,6 +106,7 @@ local generalOptions = {
 			type = "select",
 			values = prof_options2,
 			arg = "Extract Gas",
+			disabled = true,
 		},
 		showTreasure = {
 			order = 5,
@@ -109,7 +114,8 @@ local generalOptions = {
 			desc = L["Toggle showing treasure nodes."],
 			type = "select",
 			values = prof_options3,
-			arg = "Treasure"
+			arg = "Treasure",
+			disabled = true,
 		},
 		showArchaeology = {
 			order = 6,
@@ -118,6 +124,7 @@ local generalOptions = {
 			type = "select",
 			values = prof_options4,
 			arg = "Archaeology",
+			disabled = true,
 		},
 		showTimber = {
 			order = 7,
@@ -126,6 +133,7 @@ local generalOptions = {
 			type = "select",
 			values = prof_options3,
 			arg = "Logging",
+			disabled = true,
 		},
 	},
 }

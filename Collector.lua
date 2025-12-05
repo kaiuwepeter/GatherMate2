@@ -193,11 +193,13 @@ end
 function Collector:MidnightFishingCheck(event, unit)
 	if unit ~= "player" then return end
 
-	-- Check if we have the midnight fishing aura using the secure API
-	-- Use GetPlayerAuraBySpellID instead of GetAuraDataBySpellName (which is protected)
-	local auraInfo = C_UnitAuras.GetPlayerAuraBySpellID(midnightFishingAuraID)
+	-- Don't check auras during combat - the API is protected
+	if InCombatLockdown() then return end
 
-	if auraInfo then
+	-- Use pcall to safely check for the aura (API may be restricted in some situations)
+	local success, auraInfo = pcall(C_UnitAuras.GetPlayerAuraBySpellID, midnightFishingAuraID)
+
+	if success and auraInfo then
 		-- We have the fishing aura, check what we're targeting/mousing over
 		local targetName = UnitName("target") or tooltipLeftText1:GetText()
 

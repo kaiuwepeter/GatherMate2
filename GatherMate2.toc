@@ -69,6 +69,7 @@ Constants.lua
 KriemhildeNodeData\Kriemhilde_HerbalismData.lua
 KriemhildeNodeData\Kriemhilde_MiningData.lua
 KriemhildeNodeData\Kriemhilde_FishData.lua
+KriemhildeNodeData\Kriemhilde_LoggingData.lua
 KriemhildeNodeData\Kriemhilde_TreasureData.lua
 Config.lua
 WorldMapToggle.lua

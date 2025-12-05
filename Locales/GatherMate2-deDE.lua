@@ -228,6 +228,7 @@ L["DEBUG_OPTIONS_DESC"] = "Diese Debug-Optionen helfen beim Nachverfolgen von No
 L["WorldMap Toggle Button"] = "Weltkarte Toggle-Button"
 L["Show WorldMap Toggle Button"] = "Zeige Weltkarte Toggle-Button"
 L["Enable toggle button on WorldMap for quick node filtering"] = "Aktiviert Toggle-Button auf der Weltkarte zum schnellen Filtern von Nodes"
+L["USE_WORLDMAP_BUTTON_HINT"] = "Hinweis: Die Sichtbarkeit von Nodes wird jetzt über den Weltkarte Toggle-Button gesteuert. Aktiviere ihn in den Kriemhilde-Einstellungen und verwende dann den Button auf der Weltkarte, um bestimmte Node-Typen ein-/auszublenden."
 L["Toggle All"] = "Alle umschalten"
 L["Left-click: Toggle all nodes"] = "Linksklick: Alle Nodes umschalten"
 L["Right-click: Open filter menu"] = "Rechtsklick: Filtermenü öffnen"
@@ -240,6 +241,11 @@ L["Gas Nodes"] = "Gas-Nodes"
 L["Treasure Nodes"] = "Schatz-Nodes"
 L["Archaeology Nodes"] = "Archäologie-Nodes"
 L["Logging Nodes"] = "Holz-Nodes"
+
+-- Kriemhilde Import Messages
+L["KRIEMHILDE_RELOAD_REQUIRED"] = "|cffFF6600Wichtig:|r Bitte tippe |cffFFD700/reload|r um die neu importierten Nodes auf der Karte anzuzeigen!"
+L["KRIEMHILDE_UPDATE_APPLIED"] = "Update #%d angewendet"
+L["KRIEMHILDE_NEW_DATABASE"] = "Neue Datenbank importiert"
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end
@@ -407,6 +413,7 @@ NL["Floating Shipwreck Debris"] = "Schwimmende Schiffswrack Trümmer"
 NL["Floating Wreckage"] = "Treibende Wrackteile"
 NL["Floating Wreckage Pool"] = "Floating Wreckage Pool"
 NL["Fool's Cap"] = "Narrenkappe"
+NL["Forgotten Amani Cache"] = "Vergessenes Versteck der Amani"
 NL["Fossil Archaeology Find"] = "Archäologischer fossiler Fund"
 NL["Foxflower"] = "Fuchsblume"
 NL["Frenzied Fangtooth School"] = "Ein Schwarm rasender Tigerfische"
