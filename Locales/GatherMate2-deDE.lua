@@ -212,8 +212,8 @@ L["World Map Icons"] = "Weltkarten Symbole"
 L["World Map Icons Clickable"] = "Weltkarten-Symbole anklickbar"
 L["Wrath of the Lich King"] = "Wrath of the Lich King"
 
--- Kriemhildle Debug Options
-L["Kriemhildle"] = "Kriemhildle"
+-- Kriemhilde Debug Options
+L["Kriemhilde"] = "Kriemhilde"
 L["Debug Options"] = "Debug-Optionen"
 L["Debug Zone Changes"] = "Debug Zonenwechsel"
 L["Debug Spell Casts"] = "Debug Zaubersprüche"
@@ -221,7 +221,25 @@ L["Debug Node Collection"] = "Debug Node-Sammlung"
 L["Enable debug output for zone changes"] = "Aktiviert Debug-Ausgabe für Zonenwechsel"
 L["Enable debug output for spell casts and detection"] = "Aktiviert Debug-Ausgabe für Zaubersprüche und Erkennung"
 L["Enable debug output for node collection"] = "Aktiviert Debug-Ausgabe für Node-Sammlung"
-L["KRIEMHILDLE_DESC"] = "Diese Debug-Optionen helfen beim Nachverfolgen von Node-Sammlung, Zaubererkennung und Zonenidentifizierung. Aktiviere sie, um Probleme mit der Node-Erkennung zu beheben."
+L["KRIEMHILDE_DESC"] = "Kriemhilde-Einstellungen für Debugging und Weltkarten-Features. Diese Optionen helfen dir, erweiterte Funktionen von GatherMate2 anzupassen."
+L["DEBUG_OPTIONS_DESC"] = "Diese Debug-Optionen helfen beim Nachverfolgen von Node-Sammlung, Zaubererkennung und Zonenidentifizierung. Aktiviere sie, um Probleme mit der Node-Erkennung zu beheben."
+
+-- WorldMap Toggle Button
+L["WorldMap Toggle Button"] = "Weltkarte Toggle-Button"
+L["Show WorldMap Toggle Button"] = "Zeige Weltkarte Toggle-Button"
+L["Enable toggle button on WorldMap for quick node filtering"] = "Aktiviert Toggle-Button auf der Weltkarte zum schnellen Filtern von Nodes"
+L["Toggle All"] = "Alle umschalten"
+L["Left-click: Toggle all nodes"] = "Linksklick: Alle Nodes umschalten"
+L["Right-click: Open filter menu"] = "Rechtsklick: Filtermenü öffnen"
+L["Nodes shown"] = "Nodes werden angezeigt"
+L["Nodes hidden"] = "Nodes sind ausgeblendet"
+L["Mining Nodes"] = "Erz-Nodes"
+L["Herb Nodes"] = "Kräuter-Nodes"
+L["Fishing Nodes"] = "Angel-Nodes"
+L["Gas Nodes"] = "Gas-Nodes"
+L["Treasure Nodes"] = "Schatz-Nodes"
+L["Archaeology Nodes"] = "Archäologie-Nodes"
+L["Logging Nodes"] = "Holz-Nodes"
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end

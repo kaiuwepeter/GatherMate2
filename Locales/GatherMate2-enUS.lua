@@ -215,8 +215,8 @@ L["World Map Icons"] = true
 L["World Map Icons Clickable"] = true
 L["Wrath of the Lich King"] = true
 
--- Kriemhildle Debug Options
-L["Kriemhildle"] = true
+-- Kriemhilde Debug Options
+L["Kriemhilde"] = true
 L["Debug Options"] = true
 L["Debug Zone Changes"] = true
 L["Debug Spell Casts"] = true
@@ -224,7 +224,25 @@ L["Debug Node Collection"] = true
 L["Enable debug output for zone changes"] = true
 L["Enable debug output for spell casts and detection"] = true
 L["Enable debug output for node collection"] = true
-L["KRIEMHILDLE_DESC"] = "These debug options help track node collection, spell detection, and zone identification. Enable them to troubleshoot issues with node detection."
+L["KRIEMHILDE_DESC"] = "Kriemhilde settings for debugging and WorldMap features. These options help you customize GatherMate2's advanced features."
+L["DEBUG_OPTIONS_DESC"] = "These debug options help track node collection, spell detection, and zone identification. Enable them to troubleshoot issues with node detection."
+
+-- WorldMap Toggle Button
+L["WorldMap Toggle Button"] = true
+L["Show WorldMap Toggle Button"] = true
+L["Enable toggle button on WorldMap for quick node filtering"] = true
+L["Toggle All"] = true
+L["Left-click: Toggle all nodes"] = true
+L["Right-click: Open filter menu"] = true
+L["Nodes shown"] = true
+L["Nodes hidden"] = true
+L["Mining Nodes"] = true
+L["Herb Nodes"] = true
+L["Fishing Nodes"] = true
+L["Gas Nodes"] = true
+L["Treasure Nodes"] = true
+L["Archaeology Nodes"] = true
+L["Logging Nodes"] = true
 
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "enUS", true, debug)
 

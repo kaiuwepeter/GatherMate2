@@ -761,7 +761,8 @@ function Display.WorldMapDataProvider:RefreshAllData(fromOnShow)
 
 	-- iterate databases and add nodes
 	for i,db_type in pairs(GatherMate.db_types) do
-		if GatherMate.Visible[db_type] then
+		-- Check both visibility and worldMapNodeFilters
+		if GatherMate.Visible[db_type] and db.worldMapNodeFilters[db_type] then
 			for coord, nodeID in GatherMate:GetNodesForZone(uiMapID, db_type) do
 				local pin = map:AcquirePin("GatherMate2WorldMapPinTemplate", coord,  nodeID, db_type, uiMapID)
 				table.insert(worldmapPins, pin)

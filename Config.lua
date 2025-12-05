@@ -1135,39 +1135,75 @@ local faqOptions = {
 
 local kriemhildeOptions = {
 	type = "group",
-	name = L["Kriemhildle"],
+	name = L["Kriemhilde"],
 	get = get,
 	set = set,
+	childGroups = "tree",
 	args = {
 		desc = {
 			order = 0,
 			type = "description",
-			name = L["KRIEMHILDLE_DESC"],
+			name = L["KRIEMHILDE_DESC"],
 			width = "full",
 		},
-		debugZones = {
+		worldmapbutton = {
 			order = 1,
-			name = L["Debug Zone Changes"],
-			desc = L["Enable debug output for zone changes"],
-			type = "toggle",
-			arg = "debugZones",
-			width = "full",
+			type = "group",
+			name = L["WorldMap Toggle Button"],
+			args = {
+				showButton = {
+					order = 1,
+					name = L["Show WorldMap Toggle Button"],
+					desc = L["Enable toggle button on WorldMap for quick node filtering"],
+					type = "toggle",
+					arg = "showWorldMapToggleButton",
+					width = "full",
+					set = function(k, v)
+						db.showWorldMapToggleButton = v
+						local Display = GatherMate:GetModule("Display")
+						if Display and Display.UpdateToggleButtonVisibility then
+							Display:UpdateToggleButtonVisibility()
+						end
+					end,
+				},
+			},
 		},
-		debugSpells = {
+		debug = {
 			order = 2,
-			name = L["Debug Spell Casts"],
-			desc = L["Enable debug output for spell casts and detection"],
-			type = "toggle",
-			arg = "debugSpells",
-			width = "full",
-		},
-		debugCollect = {
-			order = 3,
-			name = L["Debug Node Collection"],
-			desc = L["Enable debug output for node collection"],
-			type = "toggle",
-			arg = "debugCollect",
-			width = "full",
+			type = "group",
+			name = L["Debug Options"],
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					name = L["DEBUG_OPTIONS_DESC"],
+					width = "full",
+				},
+				debugZones = {
+					order = 1,
+					name = L["Debug Zone Changes"],
+					desc = L["Enable debug output for zone changes"],
+					type = "toggle",
+					arg = "debugZones",
+					width = "full",
+				},
+				debugSpells = {
+					order = 2,
+					name = L["Debug Spell Casts"],
+					desc = L["Enable debug output for spell casts and detection"],
+					type = "toggle",
+					arg = "debugSpells",
+					width = "full",
+				},
+				debugCollect = {
+					order = 3,
+					name = L["Debug Node Collection"],
+					desc = L["Enable debug output for node collection"],
+					type = "toggle",
+					arg = "debugCollect",
+					width = "full",
+				},
+			},
 		},
 	},
 }
@@ -1205,8 +1241,8 @@ function Config:OnInitialize()
 	acr:RegisterOptionsTable("GM2/FAQ", faqOptions)
 	acd:AddToBlizOptions("GM2/FAQ", "FAQ", "GatherMate 2")
 
-	acr:RegisterOptionsTable("GM2/Kriemhildle", kriemhildeOptions)
-	acd:AddToBlizOptions("GM2/Kriemhildle", "Kriemhildle", "GatherMate 2")
+	acr:RegisterOptionsTable("GM2/Kriemhilde", kriemhildeOptions)
+	acd:AddToBlizOptions("GM2/Kriemhilde", "Kriemhilde", "GatherMate 2")
 
 	local function openOptions()
 		Settings.OpenToCategory("GatherMate 2")

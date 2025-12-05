@@ -1,6 +1,6 @@
 -- Kriemhilde Mining Data
--- 15977 treasure nodes, distributed across 109 maps
-Kriemhilde_TreasureData_Version = 20251204
+-- 15978 treasure nodes, distributed across 109 maps
+Kriemhilde_TreasureData_Version = 20251205
 
 Kriemhilde_TreasureDB = {
 	[7] = {
@@ -15881,6 +15881,7 @@ Kriemhilde_TreasureDB = {
 		[5280553000] = 566,
 		[5700229000] = 566,
 		[5700564000] = 566,
+		[5707221100] = 566,
 		[5710222000] = 566,
 		[5710538000] = 566,
 		[5710638000] = 566,

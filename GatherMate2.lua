@@ -78,6 +78,17 @@ local defaults = {
 		debugZones = false,
 		debugSpells = false,
 		debugCollect = false,
+		-- WorldMap Toggle Button
+		showWorldMapToggleButton = true,
+		worldMapNodeFilters = {
+			["Mining"] = true,
+			["Herb Gathering"] = true,
+			["Fishing"] = true,
+			["Extract Gas"] = true,
+			["Treasure"] = true,
+			["Archaeology"] = true,
+			["Logging"] = true,
+		},
 	},
 }
 
@@ -757,7 +768,7 @@ end
 	
 	-- ========== Logging ==========
     if Kriemhilde_LoggingDB and Kriemhilde_LoggingData_Version then
-      local lastVersion = self.db.global.kriemhildeVersions.fish or 0
+      local lastVersion = self.db.global.kriemhildeVersions.logging or 0
 
       if Kriemhilde_LoggingData_Version > lastVersion then
         local count = self:MergeDatabaseSmart(
@@ -765,7 +776,7 @@ end
           Kriemhilde_LoggingDB
         )
 
-        self.db.global.kriemhildeVersions.logging = Kriemhilde_FishLogging_Version
+        self.db.global.kriemhildeVersions.logging = Kriemhilde_LoggingData_Version
         totalImported = totalImported + count
         hasUpdates = true
 

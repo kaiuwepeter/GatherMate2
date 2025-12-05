@@ -71,6 +71,7 @@ KriemhildeNodeData\Kriemhilde_MiningData.lua
 KriemhildeNodeData\Kriemhilde_FishData.lua
 KriemhildeNodeData\Kriemhilde_TreasureData.lua
 Config.lua
+WorldMapToggle.lua
 
 ## XML loads last because it only contains the pin template
 GatherMate2.xml
