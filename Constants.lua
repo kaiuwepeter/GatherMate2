@@ -13,6 +13,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2")
 ]]
 local node_ids = {
 	["Fishing"] = {
+		-- ID Range: 101-1200 (currently using up to 1140)
 		[NL["Floating Wreckage"]] 				= 101, -- treasure.tga
 		--[NL["Patch of Elemental Water"]] 		= 102, -- purewater.tga
 		[NL["Floating Debris"]]					= 103, -- debris.tga
@@ -172,6 +173,7 @@ local node_ids = {
 		[NL["Viscous Void"]]					= 1140,
 	},
 	["Mining"] = {
+		-- ID Range: 201-1300 (currently using up to 1265)
 		[NL["Copper Vein"]] 					= 201,
 		[NL["Tin Vein"]] 						= 202,
 		[NL["Iron Deposit"]] 					= 203,
@@ -363,6 +365,7 @@ local node_ids = {
 		[NL["Brilliant Silver Seam"]]			= 1265,
 	},
 	["Extract Gas"] = {
+		-- ID Range: 301-400 (currently using up to 307, plenty of space available)
 		[NL["Windy Cloud"]] 					= 301,
 		[NL["Swamp Gas"]] 						= 302,
 		[NL["Arcane Vortex"]] 					= 303,
@@ -372,6 +375,7 @@ local node_ids = {
 		[NL["Arctic Cloud"]]					= 307,
 	},
 	["Herb Gathering"] = {
+		-- ID Range: 401-1600 (currently using up to 1520)
 		[NL["Peacebloom"]] 						= 401,
 		[NL["Silverleaf"]] 						= 402,
 		[NL["Earthroot"]] 						= 403,
@@ -622,6 +626,7 @@ local node_ids = {
 		},
 	},
 	["Treasure"] = {
+		-- ID Range: 501-700 (currently using up to 569, plenty of space available)
 		[NL["Giant Clam"]] 						= 501,
 		[NL["Battered Chest"]] 					= 502,
 		[NL["Tattered Chest"]] 					= 503,
@@ -696,9 +701,12 @@ local node_ids = {
 		-- Midnight
 		[NL["Forgotten Amani Cache"]]			= 567,
 		[NL["Pure Stone Cache"]]				= 568,
+		[NL["Maisaraun Vessel"]]				= 569,
+		[NL["Triple-Locked Chest"]]				= 570,
 
 	},
 	["Archaeology"] = {
+		-- ID Range: 601-700 (currently using up to 621, plenty of space available)
 		-- cata archeolgy objects
 		[NL["Night Elf Archaeology Find"]]      = 601,
 		[NL["Troll Archaeology Find"]]          = 602,
@@ -727,6 +735,7 @@ local node_ids = {
 		[NL["Zandalari Archaeology Find"]]		= 621,
 	},
 	["Logging"] = {
+		-- ID Range: 701-800 (currently using up to 704, plenty of space available)
 		[NL["Small Timber"]]					= 701,
 		[NL["Timber"]]							= 702,
 		[NL["Large Timber"]]					= 703,
@@ -1313,6 +1322,8 @@ local node_textures = {
 		[566] = icon_path.."Treasure\\wax.png", -- Disturbed Earth
 		[567] = icon_path.."Treasure\\chest.tga", -- Forgotten Amani Cache
 		[568] = icon_path.."Treasure\\chest.tga", -- Pure Stone Cache
+		[569] = icon_path.."Treasure\\chest.tga", -- Maisaraun Vessel
+		[570] = icon_path.."Treasure\\chest.tga", -- Triple-Locked Chest
 	},
 	["Archaeology"] = {
 		[601] = icon_path.."Archaeology\\shovel.tga",

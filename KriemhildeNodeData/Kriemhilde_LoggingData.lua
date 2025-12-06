@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 103 nodes across 3 maps
 -- Version: 251205
--- Created: 2025-12-05 12:38:35
+-- Created: 2025-12-05 15:47:52
 -- ============================================================
 
 Kriemhilde_LoggingData_Version = 251205
@@ -127,7 +127,7 @@ Kriemhilde_LoggingDB = {
 -- Base Version: 251205
 -- ============================================================
 
-Kriemhilde_LoggingData_Update = 1
+Kriemhilde_LoggingData_Update = 0
 Kriemhilde_LoggingData_Update_Base = 251205
 
 Kriemhilde_Update_LoggingDB = {

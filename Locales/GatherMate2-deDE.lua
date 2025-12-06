@@ -881,6 +881,8 @@ NL["Viscous Void"] = true
 -- Schätze (Treasure)
 NL["Forgotten Amani Cache"] = "Vergessenes Versteck der Amani"
 NL["Pure Stone Cache"] = "Reinsteinvorräte"
+NL["Maisaraun Vessel"] = "Maisaraunheilsgefäß"
+NL["Triple-Locked Chest"] = "Dreifach verriegelte Truhe"
 
 
 --@localization(locale="deDE", format="lua_additive_table", namespace="Nodes", table-name="NL", handle-unlocalized="ignore")@
