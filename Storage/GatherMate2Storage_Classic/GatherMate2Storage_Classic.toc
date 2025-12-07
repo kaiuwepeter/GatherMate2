@@ -1,0 +1,16 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Classic
+## Author: nevcairiel, Kriemhilde
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBCL, GatherMate2MineDBCL, GatherMate2FishDBCL, GatherMate2GasDBCL, GatherMate2TreasureDBCL, GatherMate2ArchaeologyDBCL, GatherMate2LoggingDBCL
+## X-GM2-Storage-Tag: CL
+## X-GM2-Storage-Zones: 1, 7, 10, 12, 13, 14, 15, 17, 18, 21, 22, 23, 25, 26, 27, 30, 32, 36, 37, 42, 47, 48, 49, 50, 51, 52, 55, 56, 57, 62, 63, 64, 65, 66, 69, 70, 71, 76, 77, 78, 80, 81, 83, 84, 85, 87, 88, 198, 199, 210, 217, 224, 234, 235, 236, 237, 238, 239, 240, 300, 301, 327, 416, 427, 461, 462, 465, 469, 2070
+## Notes: Classic zones - Eastern Kingdoms: Arathihochland (14), Ödland (15), Verwüstete Lande (17), Tirisfal (18), Silberwald (21), Westliche Pestländer (22), Östliche Pestländer (23), Vorgebirge des Hügellands (25), Hinterland (26), Dun Morogh (27), Sengende Schlucht (32), Brennende Steppe (36), Wald von Elwynn (37), Gebirgspass der Totenwinde (42), Dämmerwald (47), Loch Modan (48), Rotkammgebirge (49), Nördliches Schlingendorntal (50), Sümpfe des Elends (51), Westfall (52), Sumpfland (56), Thunder Bluff (88), Das Schlingendornkap (210), Schlingendorntal (224), Valley of Trials (461), Camp Narache (462) + Kalimdor zones
+..\GatherMate2\LoadAddOnStorage.lua
+## Notes2: Dungeon 55(Todesmine)
+## Notes3: Hauptstadt 84(Sturmwind), 85(Ogrimmar), 87(Eisenschmiede), 88(Donnerfels)

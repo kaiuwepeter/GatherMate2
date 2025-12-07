@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Wrath of the Lich King
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBWLK, GatherMate2MineDBWLK, GatherMate2FishDBWLK, GatherMate2GasDBWLK, GatherMate2TreasureDBWLK, GatherMate2ArchaeologyDBWLK, GatherMate2LoggingDBWLK
+## X-GM2-Storage-Tag: WLK
+## X-GM2-Storage-Zones: 113, 114, 115, 116, 117, 118, 119, 120, 121, 123, 125, 126, 127, 170, 698, 699, 700, 701
+## Notes: Northrend zones: Borean Tundra, Dragonblight, Grizzly Hills, Howling Fjord, Icecrown, Sholazar Basin, Storm Peaks, Zul'Drak, Wintergrasp, Dalaran, Crystalsong Forest
+..\GatherMate2\LoadAddOnStorage.lua

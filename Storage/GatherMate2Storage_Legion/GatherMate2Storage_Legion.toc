@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Legion
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBLegion, GatherMate2MineDBLegion, GatherMate2FishDBLegion, GatherMate2GasDBLegion, GatherMate2TreasureDBLegion, GatherMate2ArchaeologyDBLegion, GatherMate2LoggingDBLegion
+## X-GM2-Storage-Tag: Legion
+## X-GM2-Storage-Zones: 619, 627, 628, 630, 634, 641, 646, 649, 650, 652, 680, 684, 685, 715, 747, 750, 790, 806, 807, 808, 830, 831, 882, 885
+## Notes: Broken Isles & Argus: Azsuna, Dalaran, Val'sharah, Stormheim, Highmountain, Suramar, Broken Shore, Eye of Azshara, Argus zones
+..\GatherMate2\LoadAddOnStorage.lua

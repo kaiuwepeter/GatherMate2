@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Battle for Azeroth
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBBfA, GatherMate2MineDBBfA, GatherMate2FishDBBfA, GatherMate2GasDBBfA, GatherMate2TreasureDBBfA, GatherMate2ArchaeologyDBBfA, GatherMate2LoggingDBBfA
+## X-GM2-Storage-Tag: BfA
+## X-GM2-Storage-Zones: 862, 863, 864, 895, 896, 942, 1161, 1163, 1165, 1355, 1462, 1527, 1530
+## Notes: Kul Tiras & Zandalar: Zuldazar, Nazmir, Vol'dun, Tiragarde Sound, Drustvar, Stormsong Valley, Boralus, Dazar'alor, Nazjatar, Mechagon
+..\GatherMate2\LoadAddOnStorage.lua

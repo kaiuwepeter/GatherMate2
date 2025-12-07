@@ -66,11 +66,67 @@ Collector.lua
 Display.lua
 Constants.lua
 ## Kriemhilde Initial Data - loaded after Constants so node IDs are defined
-KriemhildeNodeData\Kriemhilde_HerbalismData.lua
-KriemhildeNodeData\Kriemhilde_MiningData.lua
-KriemhildeNodeData\Kriemhilde_FishData.lua
-KriemhildeNodeData\Kriemhilde_LoggingData.lua
-KriemhildeNodeData\Kriemhilde_TreasureData.lua
+## Split into multiple files to avoid constant table overflow
+## Files are loaded in alphabetical order, then merged by 00_Merge.lua
+
+## Herbalism Data (split by expansion)
+KriemhildeNodeData\Kriemhilde_HerbalismData_Classic.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_TBC.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_Wrath.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_Cata.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_MoP.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_WoD.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_Legion.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_BFA.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_Shadowlands.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_Dragonflight.lua
+KriemhildeNodeData\Kriemhilde_HerbalismData_WarWithin.lua
+
+## Mining Data (split by expansion)
+KriemhildeNodeData\Kriemhilde_MiningData_Classic.lua
+KriemhildeNodeData\Kriemhilde_MiningData_TBC.lua
+KriemhildeNodeData\Kriemhilde_MiningData_Wrath.lua
+KriemhildeNodeData\Kriemhilde_MiningData_Cata.lua
+KriemhildeNodeData\Kriemhilde_MiningData_MoP.lua
+KriemhildeNodeData\Kriemhilde_MiningData_WoD.lua
+KriemhildeNodeData\Kriemhilde_MiningData_Legion.lua
+KriemhildeNodeData\Kriemhilde_MiningData_BFA.lua
+KriemhildeNodeData\Kriemhilde_MiningData_Shadowlands.lua
+KriemhildeNodeData\Kriemhilde_MiningData_Dragonflight.lua
+KriemhildeNodeData\Kriemhilde_MiningData_WarWithin.lua
+
+## Fishing Data (split by expansion)
+KriemhildeNodeData\Kriemhilde_FishData_Classic.lua
+KriemhildeNodeData\Kriemhilde_FishData_TBC.lua
+KriemhildeNodeData\Kriemhilde_FishData_Wrath.lua
+KriemhildeNodeData\Kriemhilde_FishData_Cata.lua
+KriemhildeNodeData\Kriemhilde_FishData_MoP.lua
+KriemhildeNodeData\Kriemhilde_FishData_WoD.lua
+KriemhildeNodeData\Kriemhilde_FishData_Legion.lua
+KriemhildeNodeData\Kriemhilde_FishData_BFA.lua
+KriemhildeNodeData\Kriemhilde_FishData_Shadowlands.lua
+KriemhildeNodeData\Kriemhilde_FishData_Dragonflight.lua
+KriemhildeNodeData\Kriemhilde_FishData_WarWithin.lua
+
+## Logging Data (Dragonflight+ only)
+KriemhildeNodeData\Kriemhilde_LoggingData_Dragonflight.lua
+KriemhildeNodeData\Kriemhilde_LoggingData_WarWithin.lua
+
+## Treasure Data (split by expansion)
+KriemhildeNodeData\Kriemhilde_TreasureData_Classic.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_TBC.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_Wrath.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_Cata.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_MoP.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_WoD.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_Legion.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_BFA.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_Shadowlands.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_Dragonflight.lua
+KriemhildeNodeData\Kriemhilde_TreasureData_WarWithin.lua
+
+## Merge all split databases into unified tables (loads last, starts with 00_)
+KriemhildeNodeData\00_Merge.lua
 Config.lua
 WorldMapToggle.lua
 

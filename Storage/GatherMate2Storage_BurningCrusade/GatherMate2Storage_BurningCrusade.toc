@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Burning Crusade
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBBC, GatherMate2MineDBBC, GatherMate2FishDBBC, GatherMate2GasDBBC, GatherMate2TreasureDBBC, GatherMate2ArchaeologyDBBC, GatherMate2LoggingDBBC
+## X-GM2-Storage-Tag: BC
+## X-GM2-Storage-Zones: 94, 95, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 122, 332
+## Notes: Outland, Eversong Woods, Ghostlands, Azuremyst Isle, Bloodmyst Isle, Silvermoon, Exodar, Isle of Quel'Danas
+..\GatherMate2\LoadAddOnStorage.lua

@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Shadowlands
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBSL, GatherMate2MineDBSL, GatherMate2FishDBSL, GatherMate2GasDBSL, GatherMate2TreasureDBSL, GatherMate2ArchaeologyDBSL, GatherMate2LoggingDBSL
+## X-GM2-Storage-Tag: SL
+## X-GM2-Storage-Zones: 1525, 1533, 1536, 1543, 1550, 1565, 1670, 1671, 1961, 1970
+## Notes: Shadowlands zones: Revendreth, Bastion, Maldraxxus, The Maw, Ardenweald, Oribos, Korthia, Zereth Mortis
+..\GatherMate2\LoadAddOnStorage.lua

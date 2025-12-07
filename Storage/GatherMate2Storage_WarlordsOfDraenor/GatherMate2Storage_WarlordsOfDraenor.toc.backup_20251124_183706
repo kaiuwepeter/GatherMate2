@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Warlords of Draenor
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBWoD, GatherMate2MineDBWoD, GatherMate2FishDBWoD, GatherMate2GasDBWoD, GatherMate2TreasureDBWoD, GatherMate2ArchaeologyDBWoD, GatherMate2LoggingDBWoD
+## X-GM2-Storage-Tag: WoD
+## X-GM2-Storage-Zones: 525, 534, 535, 539, 542, 543, 550, 582, 588, 590, 622, 624
+## Notes: Draenor zones: Frostfire Ridge, Tanaan Jungle, Talador, Shadowmoon Valley, Spires of Arak, Gorgrond, Nagrand, Garrisons, Ashran, Stormshield, Warspear
+..\GatherMate2\LoadAddOnStorage.lua

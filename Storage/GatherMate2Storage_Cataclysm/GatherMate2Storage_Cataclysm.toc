@@ -1,0 +1,14 @@
+## Interface: 110205,110207,120000
+## Title: GatherMate2: Storage for Cataclysm
+## Author: nevcairiel
+## Group: GatherMate2
+## IconTexture: Interface\AddOns\GatherMate2\Artwork\Icon.tga
+## Dependencies: GatherMate2
+## Version: @project-version@
+## X-Category: Map
+## LoadSavedVariablesFirst: 1
+## SavedVariables: GatherMate2HerbDBCata, GatherMate2MineDBCata, GatherMate2FishDBCata, GatherMate2GasDBCata, GatherMate2TreasureDBCata, GatherMate2ArchaeologyDBCata, GatherMate2LoggingDBCata
+## X-GM2-Storage-Tag: Cata
+## X-GM2-Storage-Zones: 147, 148, 149, 150, 151, 152, 174, 179, 181, 182, 194, 198, 201, 203, 204, 205, 207, 217, 218, 241, 244, 245, 249, 407, 464, 469
+## Notes: Cataclysm zones: Ruinen von Gilneas (217), Ruins of Gilneas City (218), Schattenhochland (241), New Tinkertown (469) - Mount Hyjal, Vashj'ir, Deepholm, Twilight Highlands, Uldum, Tol Barad + more
+..\GatherMate2\LoadAddOnStorage.lua

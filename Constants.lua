@@ -327,7 +327,7 @@ local node_ids = {
 		[NL["Desolate Deposit"]]				= {
 			id = 1243,
 			variants = { NL["Rich Desolate Deposit"] },
-			old_ods = { 1244 },
+			old_ids = { 1244 },
 		},
 
 -- midnight nodes
@@ -739,7 +739,21 @@ local node_ids = {
 		[NL["Small Timber"]]					= 701,
 		[NL["Timber"]]							= 702,
 		[NL["Large Timber"]]					= 703,
-		[NL["Dornic Fir Lumber"]] = 704, -- TWW, Patch 11.2.7
+		-- TWW 11.2.7
+		[NL["Ironwood Lumber"]]					= 704, -- itemId 245586; Classic Areas, object id: 574596
+		[NL["Olemba Lumber"]]					= 705, -- itemId 242691; BC Areas, object id: 572129
+		[NL["Coldwind Lumber"]]					= 706, -- itemId 251762; Wotlk Areas, object id: 569722
+		[NL["Ashwood Lumber"]]					= 707, -- itemId 251764; Cata Areas, object id: 578160
+		[NL["Bamboo Lumber"]]					= 708, -- itemId 251763; MoP Areas, object id: 568424
+		[NL["Shadowmoon Lumber"]]				= 709, -- itemId 251766; Draenor (By vendor for Olemba Lumber 1:1)
+		[NL["Fel-Touched Lumber"]]				= 710, -- itemId 251767; Legion Areas, object id: 558361
+		[NL["Darkpine Lumber"]]					= 711, -- itemId 251768; BfA Areas, wowhead ids: 557988(Drustvar), 556076(Nazmir), 556387(Voldun), 558338(Mechagon), 555545(Dazar'alor und Zuldazar), 556425(Tiragarde Sound und Boralus), 556704(Stormsong Valley)
+		[NL["Arden Lumber"]]					= 712, -- itemId 251772; Shadowlands Areas, object id: 553646
+		[NL["Dragonpine Lumber"]]				= 713, -- itemId 251773; Dragon Isles Areas, object id: 547258
+		[NL["Dornic Fir Lumber"]]				= 714, -- itemId 248012; Kaz Algar Areas, object id: 543723
+		-- Midnight 12.0.0
+		[NL["Thalassian Lumber"]]				= 715, -- itemId 256963; Midnight Areas, object id: 618517
+	
 	},
 }
 GatherMate.nodeIDs, GatherMate.reverseNodeIDs, GatherMate.nodeIDReplacementMap = GatherMate:CreateNodeLookupTables(node_ids)
@@ -1352,7 +1366,18 @@ local node_textures = {
 		[701] = icon_path.."Logging\\timber.tga",
 		[702] = icon_path.."Logging\\timber.tga",
 		[703] = icon_path.."Logging\\timber.tga",
-		[704] = icon_path.."Logging\\timber.png",
+		[704] = icon_path.."Logging\\timber.tga",
+		[705] = icon_path.."Logging\\timber.tga",
+		[706] = icon_path.."Logging\\timber.tga",
+		[707] = icon_path.."Logging\\timber.tga",
+		[708] = icon_path.."Logging\\timber.tga",
+		[709] = icon_path.."Logging\\timber.tga",
+		[700] = icon_path.."Logging\\timber.tga",
+		[711] = icon_path.."Logging\\timber.tga",
+		[712] = icon_path.."Logging\\timber.tga",
+		[713] = icon_path.."Logging\\timber.tga",
+		[714] = icon_path.."Logging\\timber.tga",
+		[715] = icon_path.."Logging\\timber.tga",
 	},
 }
 GatherMate.nodeTextures = node_textures
