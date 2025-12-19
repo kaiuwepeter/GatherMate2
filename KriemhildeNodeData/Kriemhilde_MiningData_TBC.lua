@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 4,184 nodes across 13 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_TBC_Version = 251207
@@ -4224,12 +4224,17 @@ Kriemhilde_MineDB_TBC = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 1 new nodes across 1 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_MiningData_TBC_Update = 0
+Kriemhilde_MiningData_TBC_Update = 1
 Kriemhilde_MiningData_TBC_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_TBC = {
+[108] = {
+[5450328001] = 224,
+},
 }

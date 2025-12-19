@@ -1,15 +1,18 @@
 -- ============================================================
 -- Kriemhilde GatherMate2 Scraper - Fish Nodes (WarWithin)
 -- ============================================================
--- Main Database: 47 nodes across 2 maps
+-- Main Database: 50 nodes across 2 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_FishData_WarWithin_Version = 251207
 
 Kriemhilde_FishDB_WarWithin = {
 [2215] = {
+[3770490500] = 1123,
+[3960446300] = 1123,
+[4352423100] = 1123,
 [5692154100] = 1125,
 },
 [2248] = {
@@ -65,12 +68,19 @@ Kriemhilde_FishDB_WarWithin = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 3 new nodes across 1 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_FishData_WarWithin_Update = 0
+Kriemhilde_FishData_WarWithin_Update = 1
 Kriemhilde_FishData_WarWithin_Update_Base = 251207
 
 Kriemhilde_Update_FishDB_WarWithin = {
+[2215] = {
+[3770490500] = 1123,
+[3960446300] = 1123,
+[4352423100] = 1123,
+},
 }

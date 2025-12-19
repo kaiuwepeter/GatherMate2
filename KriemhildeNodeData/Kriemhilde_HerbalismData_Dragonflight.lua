@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 23,250 nodes across 9 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_HerbalismData_Dragonflight_Version = 251207
@@ -23282,12 +23282,33 @@ Kriemhilde_HerbDB_Dragonflight = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 9 new nodes across 5 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_HerbalismData_Dragonflight_Update = 0
+Kriemhilde_HerbalismData_Dragonflight_Update = 1
 Kriemhilde_HerbalismData_Dragonflight_Update_Base = 251207
 
 Kriemhilde_Update_HerbDB_Dragonflight = {
+[2022] = {
+[8100380003] = 1415,
+},
+[2023] = {
+[5090482002] = 1421,
+[5890667003] = 1422,
+},
+[2024] = {
+[4230454002] = 1428,
+[4790623001] = 1414,
+[5540253003] = 1415,
+},
+[2025] = {
+[3390737002] = 1429,
+},
+[2200] = {
+[3800366002] = 1422,
+[5760619001] = 1421,
+},
 }

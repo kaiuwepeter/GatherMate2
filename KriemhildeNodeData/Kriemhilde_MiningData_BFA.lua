@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 25,060 nodes across 11 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_BFA_Version = 251207
@@ -25096,12 +25096,20 @@ Kriemhilde_MineDB_BFA = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 2 new nodes across 2 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_MiningData_BFA_Update = 0
+Kriemhilde_MiningData_BFA_Update = 1
 Kriemhilde_MiningData_BFA_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_BFA = {
+[896] = {
+[5840487003] = 268,
+},
+[1462] = {
+[7890236002] = 267,
+},
 }

@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 6,209 nodes across 12 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_Wrath_Version = 251207
@@ -6251,7 +6251,7 @@ Kriemhilde_MineDB_Wrath = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_MiningData_Wrath_Update = 0
+Kriemhilde_MiningData_Wrath_Update = 1
 Kriemhilde_MiningData_Wrath_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_Wrath = {

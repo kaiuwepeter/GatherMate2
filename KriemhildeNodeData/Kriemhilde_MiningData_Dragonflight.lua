@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 14,722 nodes across 9 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_Dragonflight_Version = 251207
@@ -14754,12 +14754,21 @@ Kriemhilde_MineDB_Dragonflight = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 3 new nodes across 2 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_MiningData_Dragonflight_Update = 0
+Kriemhilde_MiningData_Dragonflight_Update = 1
 Kriemhilde_MiningData_Dragonflight_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_Dragonflight = {
+[2023] = {
+[6460841001] = 1210,
+},
+[2024] = {
+[3810521001] = 1202,
+[5580248001] = 1202,
+},
 }

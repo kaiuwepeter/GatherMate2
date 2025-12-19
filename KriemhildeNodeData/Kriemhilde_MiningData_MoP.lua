@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 13,458 nodes across 10 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_MoP_Version = 251207
@@ -13496,7 +13496,7 @@ Kriemhilde_MineDB_MoP = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_MiningData_MoP_Update = 0
+Kriemhilde_MiningData_MoP_Update = 1
 Kriemhilde_MiningData_MoP_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_MoP = {

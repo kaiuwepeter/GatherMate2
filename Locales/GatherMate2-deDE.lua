@@ -247,6 +247,15 @@ L["KRIEMHILDE_RELOAD_REQUIRED"] = "|cffFF6600Wichtig:|r Bitte tippe |cffFFD700/r
 L["KRIEMHILDE_UPDATE_APPLIED"] = "Update #%d angewendet"
 L["KRIEMHILDE_NEW_DATABASE"] = "Neue Datenbank importiert"
 
+-- Progressive Import System
+L["KRIEMHILDE_IMPORT_TITLE"] = "GatherMate2 - Datenbank Import"
+L["KRIEMHILDE_IMPORT_PROGRESS"] = "Importiere %s Nodes...\n\n|cffFFFFFFAufgrund von Blizzard-Beschränkungen bei großen Datenmengen (insgesamt 306.521 Nodes) können nicht alle Datenbanken auf einmal importiert werden.|r\n\n|cffFFD700Fortschritt:|r %d von 5 Datenbanken importiert\n|cffFF6600Ausstehend:|r %d Datenbank(en)\n\n|cffFFFFFFBitte klicke auf 'Neu laden' um mit dem nächsten Import fortzufahren.|r"
+L["KRIEMHILDE_IMPORT_COMPLETE"] = "Alle Datenbanken erfolgreich importiert!\n\n|cffFFD700Letzter Import:|r %s neue Nodes hinzugefügt\n\n|cffFFFFFFBitte ein letztes Mal neu laden, damit alle importierten Nodes zu sehen sind.|r"
+L["KRIEMHILDE_IMPORT_BUTTON_RELOAD"] = "Neu laden"
+L["KRIEMHILDE_IMPORT_BUTTON_LATER"] = "Später"
+L["KRIEMHILDE_IMPORTING_NODES"] = "Importiere %d Nodes... Dies kann einen Moment dauern."
+L["KRIEMHILDE_IMPORT_TIME"] = "Import abgeschlossen in %.2f Sekunden"
+
 local NL = LibStub("AceLocale-3.0"):NewLocale("GatherMate2Nodes", "deDE")
 if not NL then return end
 

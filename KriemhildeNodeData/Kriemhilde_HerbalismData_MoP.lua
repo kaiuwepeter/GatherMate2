@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 8,263 nodes across 10 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_HerbalismData_MoP_Version = 251207
@@ -8301,7 +8301,7 @@ Kriemhilde_HerbDB_MoP = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_HerbalismData_MoP_Update = 0
+Kriemhilde_HerbalismData_MoP_Update = 1
 Kriemhilde_HerbalismData_MoP_Update_Base = 251207
 
 Kriemhilde_Update_HerbDB_MoP = {

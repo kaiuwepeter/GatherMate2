@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 9,658 nodes across 7 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_HerbalismData_Shadowlands_Version = 251207
@@ -9686,12 +9686,20 @@ Kriemhilde_HerbDB_Shadowlands = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 2 new nodes across 2 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_HerbalismData_Shadowlands_Update = 0
+Kriemhilde_HerbalismData_Shadowlands_Update = 1
 Kriemhilde_HerbalismData_Shadowlands_Update_Base = 251207
 
 Kriemhilde_Update_HerbDB_Shadowlands = {
+[1525] = {
+[6030332001] = 498,
+},
+[1565] = {
+[2930626001] = 496,
+},
 }

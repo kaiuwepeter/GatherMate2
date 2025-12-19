@@ -8,6 +8,33 @@ local GatherMate = LibStub("AceAddon-3.0"):NewAddon("GatherMate2","AceConsole-3.
 local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2",false)
 _G["GatherMate2"] = GatherMate
 
+-- StaticPopup for Progressive Import
+StaticPopupDialogs["GATHERMATE2_IMPORT_PROGRESS"] = {
+	text = "",
+	button1 = L["KRIEMHILDE_IMPORT_BUTTON_RELOAD"],
+	button2 = L["KRIEMHILDE_IMPORT_BUTTON_LATER"],
+	OnAccept = function()
+		ReloadUI()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+StaticPopupDialogs["GATHERMATE2_IMPORT_COMPLETE"] = {
+	text = "",
+	button1 = L["KRIEMHILDE_IMPORT_BUTTON_RELOAD"],
+	button2 = L["KRIEMHILDE_IMPORT_BUTTON_LATER"],
+	OnAccept = function()
+		ReloadUI()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
 GatherMate.HBD = LibStub("HereBeDragons-2.0")
 local HBDMigrate = LibStub("HereBeDragons-Migrate")
 
@@ -711,6 +738,9 @@ end
 
     local totalImported = 0
     local hasUpdates = false
+
+    -- Progressive import: Only import ONE database type per reload to prevent timeout
+    -- User will need to /reload multiple times for full import
     local databases = {
       {name = "herb", mainDB = "Kriemhilde_HerbDB", updateDB = "Kriemhilde_HerbUpdateDB",
        version = "Kriemhilde_HerbData_Version", updateNum = "Kriemhilde_HerbData_UpdateNumber",
@@ -729,7 +759,16 @@ end
        baseVersion = "Kriemhilde_TreasureData_BaseVersion", target = GatherMate2TreasureDB, displayName = "treasure"},
     }
 
+    -- Check if we should use progressive import (for large datasets)
+    local useProgressiveImport = true  -- Set to false to import all at once (old behavior)
+    local importedThisReload = false
+
     for _, db in ipairs(databases) do
+      -- Progressive import: Skip if we already imported something this reload
+      if useProgressiveImport and importedThisReload then
+        break
+      end
+
       local sourceDB = _G[db.mainDB]
       local sourceUpdateDB = _G[db.updateDB]
       local currentVersion = _G[db.version]
@@ -747,30 +786,36 @@ end
 
         if updateNumber == 0 and currentVersion > lastVersion then
           -- New main database (update number 0)
+          -- IMPORTANT: Mark as imported FIRST to prevent re-import on crash
+          self.db.global.kriemhildeVersions[db.name] = currentVersion
+          self.db.global.kriemhildeUpdateNumbers[db.name] = 0
+
           needsImport = true
           importType = "main"
           count = self:MergeDatabaseSmart(db.target, sourceDB)
-          self.db.global.kriemhildeVersions[db.name] = currentVersion
-          self.db.global.kriemhildeUpdateNumbers[db.name] = 0
         elseif updateNumber > 0 and updateNumber > lastUpdateNum and sourceUpdateDB then
           -- Incremental update (update number > 0)
+          -- IMPORTANT: Mark as imported FIRST to prevent re-import on crash
+          self.db.global.kriemhildeUpdateNumbers[db.name] = updateNumber
+
           needsImport = true
           importType = "update"
           count = self:MergeDatabaseSmart(db.target, sourceUpdateDB)
-          self.db.global.kriemhildeUpdateNumbers[db.name] = updateNumber
         end
 
         if needsImport and count > 0 then
           totalImported = totalImported + count
           hasUpdates = true
+          importedThisReload = true  -- Mark that we imported something
 
-          if importType == "main" then
-            self:Print(string.format("Added %d new %s nodes from Kriemhilde data (%s)",
-              count, db.displayName, L["KRIEMHILDE_NEW_DATABASE"]))
-          else
-            self:Print(string.format("Added %d new %s nodes from Kriemhilde data (%s)",
-              count, db.displayName, string.format(L["KRIEMHILDE_UPDATE_APPLIED"], updateNumber)))
+          -- Store for popup display
+          if not self.lastImportInfo then
+            self.lastImportInfo = {}
           end
+          self.lastImportInfo.count = count
+          self.lastImportInfo.type = db.displayName
+          self.lastImportInfo.importType = importType
+          self.lastImportInfo.updateNumber = updateNumber
         end
 
         -- Free memory
@@ -781,23 +826,77 @@ end
       end
     end
 
-    -- Show reload reminder if anything was imported
+    -- Show popup dialog if anything was imported
     if hasUpdates and totalImported > 0 then
-      self:Print(string.format("Kriemhilde data imported! Total new nodes: %d", totalImported))
-      self:Print(L["KRIEMHILDE_RELOAD_REQUIRED"])
-    elseif hasUpdates and totalImported == 0 then
-      self:Print("Kriemhilde data checked - no new nodes to add")
+      -- Calculate how many databases are completed and pending
+      local completed = 0
+      local pending = 0
+      for _, db in ipairs(databases) do
+        local currentVersion = _G[db.version]
+        local lastVersion = self.db.global.kriemhildeVersions[db.name] or 0
+        if currentVersion then
+          if currentVersion <= lastVersion then
+            completed = completed + 1
+          else
+            pending = pending + 1
+          end
+        end
+      end
+
+      -- Helper function to format numbers with thousand separators
+      local function formatNumber(num)
+        local formatted = tostring(num)
+        local k
+        while true do
+          formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1.%2')
+          if k == 0 then break end
+        end
+        return formatted
+      end
+
+      -- Show popup based on completion status
+      if useProgressiveImport and pending > 0 then
+        -- Still have databases to import
+        local nodeCountStr = formatNumber(totalImported)
+        local popupText = string.format(L["KRIEMHILDE_IMPORT_PROGRESS"],
+          nodeCountStr, completed, pending)
+        StaticPopupDialogs["GATHERMATE2_IMPORT_PROGRESS"].text = popupText
+        StaticPopup_Show("GATHERMATE2_IMPORT_PROGRESS")
+      else
+        -- All databases imported
+        local nodeCountStr = formatNumber(totalImported)
+        local popupText = string.format(L["KRIEMHILDE_IMPORT_COMPLETE"], nodeCountStr)
+        StaticPopupDialogs["GATHERMATE2_IMPORT_COMPLETE"].text = popupText
+        StaticPopup_Show("GATHERMATE2_IMPORT_COMPLETE")
+      end
     end
   end
 
   --[[
     Smart merge function: Only adds new nodes, never overwrites existing ones
     Returns: Number of imported nodes
+
+    Simplified version - relies on marking import as done BEFORE merging
+    to prevent infinite re-import on timeout
   ]]
   function GatherMate:MergeDatabaseSmart(targetDB, sourceDB)
     local imported = 0
+    local totalNodes = 0
 
-    -- Optimierte Merge-Funktion ohne zusätzliche existingCoords-Tabelle
+    -- Count total nodes first for progress reporting
+    for zoneID, nodes in pairs(sourceDB) do
+      for _ in pairs(nodes) do
+        totalNodes = totalNodes + 1
+      end
+    end
+
+    if totalNodes > 50000 then
+      self:Print(string.format(L["KRIEMHILDE_IMPORTING_NODES"], totalNodes))
+    end
+
+    local startTime = debugprofilestop()
+
+    -- Optimierte Merge-Funktion
     for zoneID, nodes in pairs(sourceDB) do
       local targetZone = targetDB[zoneID]
 
@@ -818,6 +917,11 @@ end
           -- Wenn schon vorhanden → nichts tun, User-Daten behalten!
         end
       end
+    end
+
+    local elapsed = debugprofilestop() - startTime
+    if totalNodes > 50000 then
+      self:Print(string.format(L["KRIEMHILDE_IMPORT_TIME"], elapsed / 1000))
     end
 
     return imported

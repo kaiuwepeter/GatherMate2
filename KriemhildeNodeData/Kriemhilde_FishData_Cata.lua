@@ -1,17 +1,14 @@
 -- ============================================================
 -- Kriemhilde GatherMate2 Scraper - Fish Nodes (Cata)
 -- ============================================================
--- Main Database: 290 nodes across 7 maps
+-- Main Database: 289 nodes across 6 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_FishData_Cata_Version = 251207
 
 Kriemhilde_FishDB_Cata = {
-[181] = {
-[5056644900] = 110,
-},
 [201] = {
 [3487531500] = 106,
 [4382331700] = 106,
@@ -322,7 +319,7 @@ Kriemhilde_FishDB_Cata = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_FishData_Cata_Update = 0
+Kriemhilde_FishData_Cata_Update = 1
 Kriemhilde_FishData_Cata_Update_Base = 251207
 
 Kriemhilde_Update_FishDB_Cata = {

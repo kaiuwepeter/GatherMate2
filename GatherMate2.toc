@@ -65,6 +65,8 @@ GatherMate2.lua
 Collector.lua
 Display.lua
 Constants.lua
+Farmbar.lua
+FarmbarItems.lua
 ## Kriemhilde Initial Data - loaded after Constants so node IDs are defined
 ## Split into multiple files to avoid constant table overflow
 ## Files are loaded in alphabetical order, then merged by 00_Merge.lua

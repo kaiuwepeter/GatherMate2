@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 1,778 nodes across 34 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_FishData_Classic_Version = 251207
@@ -1864,7 +1864,7 @@ Kriemhilde_FishDB_Classic = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_FishData_Classic_Update = 0
+Kriemhilde_FishData_Classic_Update = 1
 Kriemhilde_FishData_Classic_Update_Base = 251207
 
 Kriemhilde_Update_FishDB_Classic = {

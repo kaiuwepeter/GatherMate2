@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 5,487 nodes across 14 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_HerbalismData_TBC_Version = 251207
@@ -5533,7 +5533,7 @@ Kriemhilde_HerbDB_TBC = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_HerbalismData_TBC_Update = 0
+Kriemhilde_HerbalismData_TBC_Update = 1
 Kriemhilde_HerbalismData_TBC_Update_Base = 251207
 
 Kriemhilde_Update_HerbDB_TBC = {

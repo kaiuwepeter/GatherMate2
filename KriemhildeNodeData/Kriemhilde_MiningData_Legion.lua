@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 16,269 nodes across 10 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_MiningData_Legion_Version = 251207
@@ -16303,12 +16303,21 @@ Kriemhilde_MineDB_Legion = {
 -- ============================================================
 -- Update Database
 -- ============================================================
--- No updates available
+-- Update Notes: 3 new nodes across 2 maps
 -- Base Version: 251207
+-- Update Version: 1
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
-Kriemhilde_MiningData_Legion_Update = 0
+Kriemhilde_MiningData_Legion_Update = 1
 Kriemhilde_MiningData_Legion_Update_Base = 251207
 
 Kriemhilde_Update_MineDB_Legion = {
+[650] = {
+[5220638003] = 257,
+},
+[680] = {
+[1920482002] = 257,
+[3380310001] = 257,
+},
 }

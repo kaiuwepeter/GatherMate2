@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 175 nodes across 1 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:50
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_LoggingData_Dragonflight_Version = 251207
@@ -195,7 +195,7 @@ Kriemhilde_LoggingDB_Dragonflight = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_LoggingData_Dragonflight_Update = 0
+Kriemhilde_LoggingData_Dragonflight_Update = 1
 Kriemhilde_LoggingData_Dragonflight_Update_Base = 251207
 
 Kriemhilde_Update_LoggingDB_Dragonflight = {

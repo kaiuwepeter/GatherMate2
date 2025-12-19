@@ -3,7 +3,7 @@
 -- ============================================================
 -- Main Database: 10,972 nodes across 12 maps
 -- Version: 251207
--- Generated: 2025-12-07 16:15:49
+-- Generated: 2025-12-07 18:53:36
 -- ============================================================
 
 Kriemhilde_HerbalismData_BFA_Version = 251207
@@ -11014,7 +11014,7 @@ Kriemhilde_HerbDB_BFA = {
 -- Base Version: 251207
 -- ============================================================
 
-Kriemhilde_HerbalismData_BFA_Update = 0
+Kriemhilde_HerbalismData_BFA_Update = 1
 Kriemhilde_HerbalismData_BFA_Update_Base = 251207
 
 Kriemhilde_Update_HerbDB_BFA = {

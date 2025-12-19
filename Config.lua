@@ -55,7 +55,6 @@ local prof_options4 = { -- For Archaeology, which doesn't have tracking as a ski
 }
 
 local db
-local imported = {}
 -- setup the options, we need to reference GatherMate for this
 
 local function get(k) return db[k.arg] end
@@ -1016,7 +1015,7 @@ ImportHelper.expac_data = {
 	["TWW"] = L["The War Within"],
 	["MIDNIGHT"] = L["Midnight"],
 }
-imported["GatherMate2_Data"] = false
+
 importOptions.args.GatherMateData = {
 	type = "group",
 	name = "GatherMate2Data", -- addon name to import from, don't localize
@@ -1108,21 +1107,10 @@ importOptions.args.GatherMateData = {
 					print(L["GatherMate2Data has been imported."])
 					Config:SendMessage("GatherMate2ConfigChanged")
 					db["importers"]["GatherMate2_Data"]["lastImport"] = dataVersion
-					imported["GatherMate2_Data"] = true
 					GatherMate:RemoveDepracatedNodes()
 				else
 					print(L["Failed to load GatherMateData due to "]..reason)
 				end
-			end,
-			disabled = function()
-				local cm = 0
-				if db["importers"]["GatherMate2_Data"].Databases["Mines"] then cm = 1 end
-				if db["importers"]["GatherMate2_Data"].Databases["Herbs"] then cm = 1 end
-				if db["importers"]["GatherMate2_Data"].Databases["Fish"] then cm = 1 end
-				if db["importers"]["GatherMate2_Data"].Databases["Gases"] then cm = 1 end
-				if db["importers"]["GatherMate2_Data"].Databases["Treasure"] then cm = 1 end
-				if db["importers"]["GatherMate2_Data"].Databases["Archaeology"] then cm = 1 end
-				return imported["GatherMate2_Data"] or (cm == 0 and not imported["GatherMate2_Data"])
 			end,
 		}
 	},
@@ -1248,6 +1236,13 @@ function Config:OnInitialize()
 
 	acr:RegisterOptionsTable("GM2/FAQ", faqOptions)
 	acd:AddToBlizOptions("GM2/FAQ", "FAQ", "GatherMate 2")
+
+	-- Farmbar-Optionen zu Kriemhilde hinzufügen
+	local FarmbarModule = GatherMate:GetModule("Farmbar", true)
+	if FarmbarModule and FarmbarModule.GetConfigOptions then
+		kriemhildeOptions.args.farmbar = FarmbarModule:GetConfigOptions()
+		kriemhildeOptions.args.farmbar.order = 3  -- Nach worldmapbutton (1) und debug (2)
+	end
 
 	acr:RegisterOptionsTable("GM2/Kriemhilde", kriemhildeOptions)
 	acd:AddToBlizOptions("GM2/Kriemhilde", "Kriemhilde", "GatherMate 2")
